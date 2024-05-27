@@ -5,7 +5,7 @@
 To use the icons in your MudBlazor project, you can add the following CSS link to your HTML or Razor layout:
 
 ```html
-<link href="_content/MudBlazor.Icons.MaterialSymbols/css/font.min.css" rel="stylesheet" />
+<link href="_content/MudBlazor.FontIcons.MaterialSymbols/css/font.min.css" rel="stylesheet" />
 ```
 
 Alternatively, you can use the following CDN links:
