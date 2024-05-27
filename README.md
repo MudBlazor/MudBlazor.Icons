@@ -28,7 +28,7 @@ Alternatively, you can use the following CDN links:
 To use an icon in your MudBlazor component, you can use the `<MudIcon>` component and specify the icon using the `Icon` parameter. For example:
 
 ```html
-<MudIcon Icon="FontIcons.MaterialSymbols.Outlined.Database"></MudIcon>
+<MudIcon Icon="@MudBlazor.FontIcons.MaterialSymbols.Outlined.Database"></MudIcon>
 ```
 
 This will render an icon representing a database, using the Material Symbols Outlined style.
