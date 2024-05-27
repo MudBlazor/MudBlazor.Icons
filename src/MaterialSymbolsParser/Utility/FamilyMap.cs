@@ -16,7 +16,7 @@ public static class FamilyMap
         MaterialSymbolsSharp,
     };
 
-    public static bool IsMaterialSymbolFamily(string family) => family.StartsWith(MaterialSymbolsPrefix);
+    public static bool IsMaterialSymbolFamily(string family) => family.StartsWith(MaterialSymbolsPrefix, StringComparison.OrdinalIgnoreCase);
 
     public static string FamilyNameToCsharpClassName(string familyName)
     {
