@@ -29,7 +29,7 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
     FetchDepth = 0,
     OnPushTags = new[] { @"\d+\.\d+\.\d+" },
     PublishArtifacts = true,
-    InvokedTargets = new[] { nameof(Push) },
+    InvokedTargets = new[] { nameof(Push), nameof(PushGithubNuget) },
     ImportSecrets = new[] { nameof(NugetKey), nameof(GithubToken) })]
 class Build : NukeBuild
 {
