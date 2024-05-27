@@ -1,45 +1,25 @@
-﻿using System.Text.Json;
-using MaterialSymbolsParser.Model;
+﻿using MaterialSymbolsParser.Model;
 using MaterialSymbolsParser.Service;
 using Microsoft.CodeAnalysis;
 //using MaterialSymbolsParser.Model;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using IconMetadata = MaterialSymbolsParser.Model.Metadata;
 
 namespace MaterialSymbolsParser;
 
-internal class Program
+public class Program
 {
-    public const string MaterialSymbolsPrefix = "Material Symbols";
-
     static async Task Main(string[] args)
     {
-        using var client = new IconHttpClient();
-        //string url = "http://fonts.google.com/metadata/icons?incomplete=1&key=material_symbols";
-        //IconMetadata? metadata = await FetchAndParseMetadataAsync(url);
+        using var client = new IconHttpClientService();
         var metadata = await client.ParseIconsAsync();
-        var filteredIcons = FilterNonMaterialSymbols(metadata!);
-        var groupedIcons = GroupIconsByFamilies(filteredIcons);
+        var filteredIcons = Utility.IconFilter.FilterNonMaterialSymbols(metadata!);
+        var groupedIcons = Utility.IconFilter.GroupIconsByFamilies(filteredIcons);
         GenerateCsFilesUsingRoslyn(groupedIcons);
     }
 
-    public static void GenerateCsFilesUsingRoslyn(Dictionary<string, List<Icon>> groupedIcons)
+    public static void GenerateCsFilesUsingRoslyn(Dictionary<string, IReadOnlyCollection<Icon>> groupedIcons)
     {
-        //var familyNamesMap = new Dictionary<string, string>
-        //{
-        //    { "Material Symbols Outlined", "Outlined" },
-        //    { "Material Symbols Rounded", "Rounded" },
-        //    { "Material Symbols Sharp", "Sharp" }
-        //};
-
-        //var familyPathsMap = new Dictionary<string, string>
-        //{
-        //    { "Material Symbols Outlined", "material-symbols-outlined" },
-        //    { "Material Symbols Rounded", "material-symbols-rounded" },
-        //    { "Material Symbols Sharp", "material-symbols-sharp" }
-        //};
-
         foreach (var group in groupedIcons)
         {
             string family = group.Key;
@@ -55,9 +35,9 @@ internal class Program
         }
     }
 
-    private static NamespaceDeclarationSyntax GenerateNamespace(KeyValuePair<string, List<Icon>> group, string className, string familyPath)
+    private static FileScopedNamespaceDeclarationSyntax GenerateNamespace(KeyValuePair<string, IReadOnlyCollection<Icon>> group, string className, string familyPath)
     {
-        return SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName("MudBlazor"))
+        return SyntaxFactory.FileScopedNamespaceDeclaration(SyntaxFactory.ParseName("MudBlazor"))
             .AddUsings(SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System")))
             .AddMembers(GenerateIconsClass(group, className, familyPath))
             .WithLeadingTrivia(AddComment());
@@ -73,21 +53,21 @@ internal class Program
         );
     }
 
-    private static ClassDeclarationSyntax GenerateIconsClass(KeyValuePair<string, List<Icon>> group, string className, string familyPath)
+    private static ClassDeclarationSyntax GenerateIconsClass(KeyValuePair<string, IReadOnlyCollection<Icon>> group, string className, string familyPath)
     {
         return SyntaxFactory.ClassDeclaration("Icons")
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
             .AddMembers(GenerateMaterialSymbolsClass(group, className, familyPath));
     }
 
-    private static ClassDeclarationSyntax GenerateMaterialSymbolsClass(KeyValuePair<string, List<Icon>> group, string className, string familyPath)
+    private static ClassDeclarationSyntax GenerateMaterialSymbolsClass(KeyValuePair<string, IReadOnlyCollection<Icon>> group, string className, string familyPath)
     {
         return SyntaxFactory.ClassDeclaration("MaterialSymbols")
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
             .AddMembers(GenerateFamilyClass(group, className, familyPath));
     }
 
-    private static ClassDeclarationSyntax GenerateFamilyClass(KeyValuePair<string, List<Icon>> group, string className, string familyPath)
+    private static ClassDeclarationSyntax GenerateFamilyClass(KeyValuePair<string, IReadOnlyCollection<Icon>> group, string className, string familyPath)
     {
         return SyntaxFactory.ClassDeclaration(className)
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
@@ -114,27 +94,6 @@ internal class Program
                     )
             )
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.ConstKeyword));
-    }
-
-    public static Dictionary<string, List<Icon>> GroupIconsByFamilies(List<Icon> icons)
-    {
-        var families = new List<string>
-        {
-            "Material Symbols Outlined",
-            "Material Symbols Rounded",
-            "Material Symbols Sharp"
-        };
-
-        var groupedIcons = new Dictionary<string, List<Icon>>();
-
-        foreach (var family in families)
-        {
-            groupedIcons[family] = icons
-                .Where(icon => !icon.UnsupportedFamilies.Contains(family))
-                .ToList();
-        }
-
-        return groupedIcons;
     }
 
     //public static void GenerateCsFiles(Dictionary<string, List<Icon>> groupedIcons)
@@ -188,28 +147,4 @@ internal class Program
     //        File.WriteAllText($"{className}.cs", sb.ToString());
     //    }
     //}
-
-    public static List<Icon> FilterNonMaterialSymbols(IconMetadata metadata)
-    {
-        return metadata.Icons
-            .Where(icon => !icon.UnsupportedFamilies.Any(family => family.StartsWith(MaterialSymbolsPrefix)))
-            .ToList();
-    }
-
-    public static async Task<IconMetadata?> FetchAndParseMetadataAsync(string url)
-    {
-        using HttpClient client = new HttpClient();
-        var json = await client.GetStringAsync(url);
-
-        using var reader = new StringReader(json);
-        await reader.ReadLineAsync(); // Skip the first line
-        var validJson = await reader.ReadToEndAsync();
-
-        var metadata = JsonSerializer.Deserialize<IconMetadata>(validJson, new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        });
-
-        return metadata;
-    }
 }

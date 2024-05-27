@@ -3,14 +3,14 @@ using MaterialSymbolsParser.Model;
 
 namespace MaterialSymbolsParser.Service;
 
-public class IconHttpClient : IDisposable
+public class IconHttpClientService : IDisposable
 {
     public const string GoogleFontUrl = "http://fonts.google.com/";
 
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
 
-    public IconHttpClient()
+    public IconHttpClientService()
     {
         _httpClient = new HttpClient
         {
