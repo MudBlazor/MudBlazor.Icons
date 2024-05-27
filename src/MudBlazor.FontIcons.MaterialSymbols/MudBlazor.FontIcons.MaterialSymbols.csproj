@@ -15,9 +15,41 @@
     <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
   
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <Company>MudBlazor</Company>
+    <Authors>Garderoben, Henon and Contributors</Authors>
+    <Copyright>Copyright 2024 MudBlazor</Copyright>
+    <Description>Official Material Symbols icon pack for MudBlazor.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://mudblazor.com/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MudBlazor/MudBlazor.Icons</RepositoryUrl>
+    <PackageTags>MudBlazor, Material Symbols, Material, Symbols, Icons, Blazor, Blazor Library</PackageTags>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+  
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-  </PropertyGroup> 
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
   
   <ItemGroup>
     <SupportedPlatform Include="browser" />

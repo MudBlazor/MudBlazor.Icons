@@ -7,12 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudBlazor.FontIcons.Materia
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaterialSymbolsParser", "src\MaterialSymbolsParser\MaterialSymbolsParser.csproj", "{451E5BC8-C1D9-46DA-8151-B3A204300562}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{62C839DE-403F-4001-AF1A-32DCCB75DB7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62C839DE-403F-4001-AF1A-32DCCB75DB7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62C839DE-403F-4001-AF1A-32DCCB75DB7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57334B6A-1E52-4571-B01A-8986A04877C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{57334B6A-1E52-4571-B01A-8986A04877C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57334B6A-1E52-4571-B01A-8986A04877C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
