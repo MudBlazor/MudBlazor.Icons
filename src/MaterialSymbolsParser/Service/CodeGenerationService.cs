@@ -34,8 +34,8 @@ public class CodeGenerationService
         });
 
         var namespaceDeclaration = SyntaxFactory
-            .NamespaceDeclaration(SyntaxFactory.ParseName("MudBlazor"))
-            .AddMembers(GenerateIconsClass(group, className, familyPath));
+            .NamespaceDeclaration(SyntaxFactory.ParseName("MudBlazor.FontIcons.MaterialSymbols"))
+            .AddMembers(GenerateFamilyClass(group, className, familyPath));
 
         var commentTrivia = AddComment();
 
@@ -55,6 +55,9 @@ public class CodeGenerationService
         );
     }
 
+    /*
+    Only if we want use nested classes like its currently done in MudBlazor, but we actually should use namespace and do a breaking changed in MudBlazor 
+
     private static ClassDeclarationSyntax GenerateIconsClass(KeyValuePair<string, IReadOnlyCollection<Icon>> group, string className, string familyPath)
     {
         return SyntaxFactory.ClassDeclaration("Icons")
@@ -68,6 +71,7 @@ public class CodeGenerationService
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.StaticKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
             .AddMembers(GenerateFamilyClass(group, className, familyPath));
     }
+    */
 
     private static ClassDeclarationSyntax GenerateFamilyClass(KeyValuePair<string, IReadOnlyCollection<Icon>> group, string className, string familyPath)
     {
