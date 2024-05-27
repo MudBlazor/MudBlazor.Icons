@@ -12,7 +12,6 @@ public static class Program
         var filteredIcons = Utility.IconFilter.FilterNonMaterialSymbols(metadata!);
         var groupedIcons = Utility.IconFilter.GroupIconsByFamilies(filteredIcons);
 
-
         codeGenerator.GenerateCsFilesUsingRoslyn(groupedIcons, folder: "../../../../MudBlazor.Icons.MaterialSymbols");
     }
 }

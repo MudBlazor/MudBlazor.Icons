@@ -1,4 +1,5 @@
-﻿using MaterialSymbolsParser.Model;
+﻿using MaterialSymbolsParser.Extensions;
+using MaterialSymbolsParser.Model;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis;
@@ -57,29 +58,41 @@ public class CodeGenerationService
     private static ClassDeclarationSyntax GenerateIconsClass(KeyValuePair<string, IReadOnlyCollection<Icon>> group, string className, string familyPath)
     {
         return SyntaxFactory.ClassDeclaration("Icons")
-            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
+            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.StaticKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
             .AddMembers(GenerateMaterialSymbolsClass(group, className, familyPath));
     }
 
     private static ClassDeclarationSyntax GenerateMaterialSymbolsClass(KeyValuePair<string, IReadOnlyCollection<Icon>> group, string className, string familyPath)
     {
         return SyntaxFactory.ClassDeclaration("MaterialSymbols")
-            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
+            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.StaticKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
             .AddMembers(GenerateFamilyClass(group, className, familyPath));
     }
 
     private static ClassDeclarationSyntax GenerateFamilyClass(KeyValuePair<string, IReadOnlyCollection<Icon>> group, string className, string familyPath)
     {
         return SyntaxFactory.ClassDeclaration(className)
-            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
+            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.StaticKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
             .AddMembers(group.Value.Select(icon => GenerateIconField(icon, familyPath)).Cast<MemberDeclarationSyntax>().ToArray());
     }
+
+    private static bool IsKeyword(string keyword)
+    {
+        var syntaxKind = SyntaxFacts.GetKeywordKind(keyword);
+        return SyntaxFacts.IsKeywordKind(syntaxKind);
+    }
+
     private static FieldDeclarationSyntax GenerateIconField(Icon icon, string familyPath)
     {
-        var iconName = icon.Name;
+        var iconName = icon.Name.ConvertToCamelCase();
         if (char.IsDigit(iconName[0]))
         {
-            iconName = "_" + iconName;
+            iconName = $"_{iconName}";
+        }
+
+        if (IsKeyword(iconName))
+        {
+            iconName = $"@{iconName}";
         }
 
         return SyntaxFactory.FieldDeclaration(
