@@ -39,7 +39,7 @@ jobs:
       - name: 'Run: Push'
         run: ./build.cmd Push
         env:
-          NuGetApiKey: ${{ secrets.NUGET_API_KEY }}
+          NugetKey: ${{ secrets.NUGET_KEY }}
           GithubToken: ${{ secrets.GITHUB_TOKEN }}
       - name: 'Publish: packages'
         uses: actions/upload-artifact@v3

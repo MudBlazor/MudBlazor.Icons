@@ -30,7 +30,7 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
     OnPushTags = new[] { @"\d+\.\d+\.\d+" },
     PublishArtifacts = true,
     InvokedTargets = new[] { nameof(Push) },
-    ImportSecrets = new[] { nameof(NuGetApiKey), nameof(GithubToken) })]
+    ImportSecrets = new[] { nameof(NugetKey), nameof(GithubToken) })]
 class Build : NukeBuild
 {
     /// Support plugins are available for:
@@ -45,7 +45,7 @@ class Build : NukeBuild
     readonly Configuration Configuration = Configuration.Release;
 
     [Parameter] string NugetApiUrl = "https://api.nuget.org/v3/index.json"; //default
-    [Parameter][Secret] readonly string NuGetApiKey;
+    [Parameter][Secret] readonly string NugetKey;
     [Parameter][Secret] readonly string GithubToken;
 
     bool IsTag => GitHubActions.Instance?.Ref?.StartsWith("refs/tags/") ?? false;
@@ -100,13 +100,13 @@ class Build : NukeBuild
     Target Push => _ => _
         .DependsOn(Pack)
         .OnlyWhenStatic(() => IsTag && IsServerBuild)
-        .Requires(() => NuGetApiKey)
+        .Requires(() => NugetKey)
         .Requires(() => Configuration.Equals(Configuration.Release))
         .Executes(() =>
         {
             Log.Information("Running push to packages directory.");
 
-            Assert.True(!string.IsNullOrEmpty(NuGetApiKey));
+            Assert.True(!string.IsNullOrEmpty(NugetKey));
 
             PackagesDirectory.GlobFiles("*.nupkg")
                 .ForEach(x =>
@@ -115,7 +115,7 @@ class Build : NukeBuild
                     DotNetNuGetPush(s => s
                         .SetTargetPath(x)
                         .SetSource(NugetApiUrl)
-                        .SetApiKey(NuGetApiKey)
+                        .SetApiKey(NugetKey)
                         .EnableSkipDuplicate()
                     );
                 });
