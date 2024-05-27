@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34916.146
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialSymbolsParser", "MaterialSymbolsParser\MaterialSymbolsParser.csproj", "{A71DC0B9-E72A-4E52-A3AA-EE75CE374B7C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A71DC0B9-E72A-4E52-A3AA-EE75CE374B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A71DC0B9-E72A-4E52-A3AA-EE75CE374B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A71DC0B9-E72A-4E52-A3AA-EE75CE374B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A71DC0B9-E72A-4E52-A3AA-EE75CE374B7C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D58B0389-4F41-4A7E-BBDA-44B6B4A3BEFE}
+	EndGlobalSection
+EndGlobal
