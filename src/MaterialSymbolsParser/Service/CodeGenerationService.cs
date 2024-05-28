@@ -42,7 +42,7 @@ public class CodeGenerationService
         return SyntaxFactory.CompilationUnit()
             .WithUsings(usings)
             .WithMembers(SyntaxFactory.SingletonList<MemberDeclarationSyntax>(namespaceDeclaration))
-            .WithLeadingTrivia(commentTrivia); ;
+            .WithLeadingTrivia(commentTrivia);
     }
 
     private static SyntaxTriviaList AddComment()
