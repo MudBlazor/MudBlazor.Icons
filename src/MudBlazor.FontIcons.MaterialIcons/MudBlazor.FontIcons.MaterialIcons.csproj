@@ -27,6 +27,7 @@
     <PackageTags>MudBlazor, Material Icons, Material, Icons, Blazor, Blazor Library</PackageTags>
     <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>material_icons_usage.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -45,7 +46,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\README.md">
+    <None Include="..\..\documentation\$(PackageReadmeFile)">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
