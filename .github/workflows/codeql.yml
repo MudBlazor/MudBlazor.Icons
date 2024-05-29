@@ -48,12 +48,13 @@ jobs:
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
-        languages: csharp
+        languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
 
     - if: matrix.build-mode == 'manual'
+      name: 🛠️ Build
       shell: bash
-      run: ./build.sh Compile
+      run: ./build.sh Pack
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
