@@ -46,7 +46,7 @@ If you prefer not to use the full qualifier every time, you can create an alias 
 This allows you to access the icons like this:
 
 ```html
-<MudIcon Icon="@MaterialIcons.Outlined.Database"></MudIcon>
+<MudIcon Icon="@MaterialIcons.Outlined.Chat"></MudIcon>
 ```
 
 **NB!** Please note that aliases do not work in normal Razor pages (https://github.com/dotnet/razor/issues/7670)!
