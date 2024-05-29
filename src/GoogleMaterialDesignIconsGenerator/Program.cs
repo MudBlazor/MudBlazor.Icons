@@ -11,7 +11,7 @@ public static class Program
     {
         var iconType = AnsiConsole.Prompt(
             new SelectionPrompt<IconType>()
-                .Title("What icon pack to [green]generate[/]?")
+                .Title("What [green]icon[/] pack to generate?")
                 .PageSize(10)
                 .MoreChoicesText("[grey](Move up and down to reveal more options)[/]")
                 .AddChoices([
@@ -19,7 +19,6 @@ public static class Program
                     IconType.MaterialSymbols
                 ]));
 
-        //var iconType = IconType.MaterialIcons;
         var codeGenerator = new CodeGenerationService();
         using var client = new IconHttpClientService();
         var metadata = await client.ParseIconsAsync().ConfigureAwait(false);
