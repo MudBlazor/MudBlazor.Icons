@@ -9,6 +9,7 @@ public static class FamilyMap
     public const string MaterialIconsPrefix = "Material Icons";
     public const string Outlined = "Outlined";
     public const string Rounded = "Rounded";
+    public const string Round = "Round";
     public const string Sharp = "Sharp";
     public const string TwoTone = "Two Tone";
     public const string Filled = "Filled";
@@ -18,33 +19,38 @@ public static class FamilyMap
 
     public const string MaterialIconsOutlined = $"{MaterialIconsPrefix} {Outlined}";
     public const string MaterialIconsFilled = $"{MaterialIconsPrefix}"; // this is not a typo, filled is indeed only using "Material Icons" without "Filled"
-    public const string MaterialIconsRounded = $"{MaterialIconsPrefix} {Rounded}";
+    public const string MaterialIconsRound = $"{MaterialIconsPrefix} {Round}";
     public const string MaterialIconsSharp = $"{MaterialIconsPrefix} {Sharp}";
     public const string MaterialIconsTwoTone = $"{MaterialIconsPrefix} {TwoTone}";
 
-    public static readonly IReadOnlyList<string> MaterialSymbolsFamilies = new List<string>
+    private static readonly Dictionary<IconType, IReadOnlyList<string>> FamiliesByIconType = new()
     {
-        MaterialSymbolsOutlined,
-        MaterialSymbolsRounded,
-        MaterialSymbolsSharp,
+        {
+            IconType.MaterialSymbols, [
+                MaterialSymbolsOutlined,
+                MaterialSymbolsRounded,
+                MaterialSymbolsSharp
+            ]
+        },
+        {
+            IconType.MaterialIcons, [
+                MaterialIconsOutlined,
+                MaterialIconsFilled,
+                MaterialIconsRound,
+                MaterialIconsSharp,
+                MaterialIconsTwoTone
+            ]
+        }
     };
-    public static readonly IReadOnlyList<string> MaterialIconsFamilies = new List<string>
-    {
-        MaterialIconsOutlined,
-        MaterialIconsFilled,
-        MaterialIconsRounded,
-        MaterialIconsSharp,
-        MaterialIconsTwoTone
-    };
-        
+
     public static IReadOnlyList<string> GetFamiliesByIconType(IconType iconType)
     {
-        return iconType switch
+        if (FamiliesByIconType.TryGetValue(iconType, out var result))
         {
-            IconType.MaterialSymbols => MaterialSymbolsFamilies,
-            IconType.MaterialIcons => MaterialIconsFamilies,
-            _ => throw new InvalidOperationException($"Mapping for icon type {iconType} not found!")
-        };
+            return result;
+        }
+
+        throw new InvalidOperationException($"Mapping for icon type {iconType} not found!");
     }
 
     public static IconType FromFamilyToIconType(string family)
@@ -60,13 +66,23 @@ public static class FamilyMap
             // Material Icons
             case MaterialIconsOutlined:
             case MaterialIconsFilled:
-            case MaterialIconsRounded:
+            case MaterialIconsRound:
             case MaterialIconsSharp:
             case MaterialIconsTwoTone:
                 return IconType.MaterialIcons;
             default:
                 throw new InvalidOperationException($"Mapping for family name {family} not found!");
         }
+    }
+
+    public static string GetFamilyPrefixByIconType(IconType iconType)
+    {
+        return iconType switch
+        {
+            IconType.MaterialSymbols => MaterialSymbolsPrefix,
+            IconType.MaterialIcons => MaterialIconsPrefix,
+            _ => throw new InvalidOperationException($"Mapping for icon type {iconType} not found!")
+        };
     }
 
     public static bool IsSelectedFamilyByIconType(IconType iconType, string family)
@@ -106,7 +122,8 @@ public static class FamilyMap
             // Material Icons
             MaterialIconsOutlined => Outlined,
             MaterialIconsFilled => Filled,
-            MaterialIconsRounded => Rounded,
+            // Ups should be Round, too late to change
+            MaterialIconsRound => Rounded,
             MaterialIconsSharp => Sharp,
             MaterialIconsTwoTone => TwoTone.RemoveWhitespace(), //Remove space in between.
             _ => throw new InvalidOperationException($"Mapping for family name {familyName} not found!")
@@ -126,7 +143,7 @@ public static class FamilyMap
             // Material Icons
             MaterialIconsOutlined => "material-icons-outlined",
             MaterialIconsFilled => "material-icons",
-            MaterialIconsRounded => "material-icons-round",
+            MaterialIconsRound => "material-icons-round",
             MaterialIconsSharp => "material-icons-sharp",
             MaterialIconsTwoTone => "material-icons-two-tone",
             _ => throw new InvalidOperationException($"Mapping for family name {familyName} not found!")
