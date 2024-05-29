@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
-using MaterialSymbolsParser.Model.Google;
+using GoogleMaterialDesignIconsGenerator.Model.Google;
 
-namespace MaterialSymbolsParser.Service;
+namespace GoogleMaterialDesignIconsGenerator.Service;
 
 public class IconHttpClientService : IDisposable
 {

@@ -1,7 +1,7 @@
-﻿using MaterialSymbolsParser.Model;
-using MaterialSymbolsParser.Model.Google;
+﻿using GoogleMaterialDesignIconsGenerator.Model;
+using GoogleMaterialDesignIconsGenerator.Model.Google;
 
-namespace MaterialSymbolsParser.Utility;
+namespace GoogleMaterialDesignIconsGenerator.Utility;
 
 public static class IconFilter
 {

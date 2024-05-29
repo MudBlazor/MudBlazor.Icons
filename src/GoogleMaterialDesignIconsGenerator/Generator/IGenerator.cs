@@ -1,7 +1,7 @@
-﻿using MaterialSymbolsParser.Model.Google;
+﻿using GoogleMaterialDesignIconsGenerator.Model.Google;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace MaterialSymbolsParser.Generator;
+namespace GoogleMaterialDesignIconsGenerator.Generator;
 
 public interface IGenerator
 {

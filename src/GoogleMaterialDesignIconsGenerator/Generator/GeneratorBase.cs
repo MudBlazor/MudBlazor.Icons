@@ -1,10 +1,10 @@
-﻿using MaterialSymbolsParser.Extensions;
-using MaterialSymbolsParser.Model.Google;
+﻿using GoogleMaterialDesignIconsGenerator.Extensions;
+using GoogleMaterialDesignIconsGenerator.Model.Google;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis;
 
-namespace MaterialSymbolsParser.Generator;
+namespace GoogleMaterialDesignIconsGenerator.Generator;
 
 public abstract class GeneratorBase : IGenerator
 {

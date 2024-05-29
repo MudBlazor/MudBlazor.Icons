@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace MaterialSymbolsParser.Extensions;
+namespace GoogleMaterialDesignIconsGenerator.Extensions;
 
 public static class SyntaxNodeExtensions
 {

@@ -1,6 +1,6 @@
-﻿using MaterialSymbolsParser.Model;
+﻿using GoogleMaterialDesignIconsGenerator.Model;
 
-namespace MaterialSymbolsParser.Generator;
+namespace GoogleMaterialDesignIconsGenerator.Generator;
 
 public static class GeneratorFactory
 {

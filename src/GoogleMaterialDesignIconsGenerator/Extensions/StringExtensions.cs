@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace MaterialSymbolsParser.Extensions;
+namespace GoogleMaterialDesignIconsGenerator.Extensions;
 
 public static class StringExtensions
 {

@@ -1,8 +1,8 @@
-﻿using MaterialSymbolsParser.Extensions;
-using MaterialSymbolsParser.Model;
-using MaterialSymbolsParser.Service;
+﻿using GoogleMaterialDesignIconsGenerator.Extensions;
+using GoogleMaterialDesignIconsGenerator.Model;
+using GoogleMaterialDesignIconsGenerator.Service;
 
-namespace MaterialSymbolsParser;
+namespace GoogleMaterialDesignIconsGenerator;
 
 public static class Program
 {

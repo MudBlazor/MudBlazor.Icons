@@ -1,9 +1,9 @@
-﻿using MaterialSymbolsParser.Model.Google;
+﻿using GoogleMaterialDesignIconsGenerator.Generator;
+using GoogleMaterialDesignIconsGenerator.Model;
+using GoogleMaterialDesignIconsGenerator.Model.Google;
 using Microsoft.CodeAnalysis;
-using MaterialSymbolsParser.Generator;
-using MaterialSymbolsParser.Model;
 
-namespace MaterialSymbolsParser.Service;
+namespace GoogleMaterialDesignIconsGenerator.Service;
 
 public class CodeGenerationService
 {

@@ -1,7 +1,7 @@
-﻿using MaterialSymbolsParser.Extensions;
-using MaterialSymbolsParser.Model;
+﻿using GoogleMaterialDesignIconsGenerator.Extensions;
+using GoogleMaterialDesignIconsGenerator.Model;
 
-namespace MaterialSymbolsParser.Utility;
+namespace GoogleMaterialDesignIconsGenerator.Utility;
 
 public static class FamilyMap
 {

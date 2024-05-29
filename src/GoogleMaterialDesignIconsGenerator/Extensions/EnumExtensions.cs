@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace MaterialSymbolsParser.Extensions;
+namespace GoogleMaterialDesignIconsGenerator.Extensions;
 
 public static class EnumExtensions
 {

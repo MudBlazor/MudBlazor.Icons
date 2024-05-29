@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 
-namespace MaterialSymbolsParser.Model.Google;
+namespace GoogleMaterialDesignIconsGenerator.Model.Google;
 
 public class Metadata
 {

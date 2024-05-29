@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudBlazor.FontIcons.MaterialSymbols", "src\MudBlazor.FontIcons.MaterialSymbols\MudBlazor.FontIcons.MaterialSymbols.csproj", "{57334B6A-1E52-4571-B01A-8986A04877C0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaterialSymbolsParser", "src\MaterialSymbolsParser\MaterialSymbolsParser.csproj", "{451E5BC8-C1D9-46DA-8151-B3A204300562}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleMaterialDesignIconsGenerator", "src\GoogleMaterialDesignIconsGenerator\GoogleMaterialDesignIconsGenerator.csproj", "{451E5BC8-C1D9-46DA-8151-B3A204300562}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{62C839DE-403F-4001-AF1A-32DCCB75DB7F}"
 EndProject

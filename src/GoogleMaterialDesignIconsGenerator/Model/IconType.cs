@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace MaterialSymbolsParser.Model;
+namespace GoogleMaterialDesignIconsGenerator.Model;
 
 public enum IconType
 {

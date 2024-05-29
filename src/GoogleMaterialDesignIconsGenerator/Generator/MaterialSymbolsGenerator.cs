@@ -1,4 +1,4 @@
-﻿namespace MaterialSymbolsParser.Generator;
+﻿namespace GoogleMaterialDesignIconsGenerator.Generator;
 
 public class MaterialSymbolsGenerator : GeneratorBase
 {
