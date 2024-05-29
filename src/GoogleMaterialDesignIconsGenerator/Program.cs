@@ -13,7 +13,7 @@ public static class Program
             new SelectionPrompt<IconType>()
                 .Title("What icon pack to [green]generate[/]?")
                 .PageSize(10)
-                .MoreChoicesText("[grey](Move up and down to reveal more fruits)[/]")
+                .MoreChoicesText("[grey](Move up and down to reveal more options)[/]")
                 .AddChoices([
                     IconType.MaterialIcons,
                     IconType.MaterialSymbols
