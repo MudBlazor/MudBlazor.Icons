@@ -1,6 +1,6 @@
-# MudBlazor Font Icons
+# MudBlazor Icons
 
-Welcome to the MudBlazor Font Icons repository. This project provides icon packs for MudBlazor, leveraging Google's Material Icons and Material Symbols.
+Welcome to the MudBlazor Icons repository. This project provides icon packs for MudBlazor, leveraging Google's Material Icons and Material Symbols.
 
 ## Icon Packs
 
