@@ -1,4 +1,5 @@
-﻿using MaterialSymbolsParser.Model;
+﻿using MaterialSymbolsParser.Extensions;
+using MaterialSymbolsParser.Model;
 
 namespace MaterialSymbolsParser.Utility;
 
@@ -35,7 +36,7 @@ public static class FamilyMap
         MaterialIconsSharp,
         MaterialIconsTwoTone
     };
-
+        
     public static IReadOnlyList<string> GetFamiliesByIconType(IconType iconType)
     {
         return iconType switch
@@ -97,7 +98,7 @@ public static class FamilyMap
             MaterialIconsFilled => Filled,
             MaterialIconsRounded => Rounded,
             MaterialIconsSharp => Sharp,
-            MaterialIconsTwoTone => TwoTone,
+            MaterialIconsTwoTone => TwoTone.RemoveWhitespace(), //Remove space in between.
             _ => throw new InvalidOperationException($"Mapping for family name {familyName} not found!")
         };
     }

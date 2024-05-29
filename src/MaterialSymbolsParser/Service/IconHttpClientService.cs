@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using MaterialSymbolsParser.Model;
+using MaterialSymbolsParser.Model.Google;
 
 namespace MaterialSymbolsParser.Service;
 
@@ -18,7 +18,7 @@ public class IconHttpClientService : IDisposable
         };
         _jsonSerializerOptions = new JsonSerializerOptions
         {
-            TypeInfoResolver = Model.MetadataJsonSerializerContext.Default
+            TypeInfoResolver = MetadataJsonSerializerContext.Default
         };
 
     }
