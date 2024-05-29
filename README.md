@@ -32,3 +32,19 @@ To use an icon in your MudBlazor component, you can use the `<MudIcon>` componen
 ```
 
 This will render an icon representing a database, using the Material Symbols Outlined style.
+
+## Using Aliases
+
+If you prefer not to use the full qualifier every time, you can create an alias in `_Imports.razor` by adding the following line:
+
+```razor
+@using MaterialSymbols = MudBlazor.FontIcons.MaterialSymbols
+```
+
+This allows you to access the icons like this:
+
+```html
+<MudIcon Icon="@MaterialSymbols.Outlined.Database"></MudIcon>
+```
+
+**NB!** Please note that aliases do not work in normal Razor pages (https://github.com/dotnet/razor/issues/7670)!
