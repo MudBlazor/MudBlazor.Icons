@@ -6,6 +6,8 @@ public static class EnumExtensions
 {
     public static string GetDescription(this Enum value)
     {
+        ArgumentNullException.ThrowIfNull(value);
+
         var type = value.GetType();
 
         var memberInfo = type.GetMember(value.ToString());

@@ -8,7 +8,7 @@ namespace GoogleMaterialDesignIconsGenerator.Generator;
 
 public abstract class GeneratorBase : IGenerator
 {
-    public abstract string Namespace { get; }
+    public abstract string RootNamespace { get; }
 
     public CompilationUnitSyntax GetCompilationUnitSyntax(KeyValuePair<string, IReadOnlyCollection<Icon>> group, string className, string familyPath)
     {
@@ -18,7 +18,7 @@ public abstract class GeneratorBase : IGenerator
         });
 
         var namespaceDeclaration = SyntaxFactory
-            .NamespaceDeclaration(SyntaxFactory.ParseName(Namespace))
+            .NamespaceDeclaration(SyntaxFactory.ParseName(RootNamespace))
             .AddMembers(GenerateFamilyClass(group, className, familyPath));
 
         var commentTrivia = AddComment();

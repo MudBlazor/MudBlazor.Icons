@@ -2,5 +2,5 @@
 
 public class MaterialSymbolsGenerator : GeneratorBase
 {
-    public override string Namespace => "MudBlazor.FontIcons.MaterialSymbols";
+    public override string RootNamespace => "MudBlazor.FontIcons.MaterialSymbols";
 }

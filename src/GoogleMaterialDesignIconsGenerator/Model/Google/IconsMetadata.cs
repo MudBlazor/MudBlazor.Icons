@@ -3,13 +3,15 @@ using System.Text.Json.Serialization;
 
 namespace GoogleMaterialDesignIconsGenerator.Model.Google;
 
-public class Metadata
+public class IconsMetadata
 {
     [JsonPropertyName("host")]
     public string Host { get; set; } = string.Empty;
 
+#pragma warning disable CA1056 // URI-like properties should not be strings
     [JsonPropertyName("asset_url_pattern")]
     public string AssetUrlPattern { get; set; } = string.Empty;
+#pragma warning restore CA1056 // URI-like properties should not be strings
 
     [JsonPropertyName("families")]
     public IReadOnlyCollection<string> Families { get; set; } = ReadOnlyCollection<string>.Empty;

@@ -9,6 +9,8 @@ public class CodeGenerationService
 {
     public void GenerateCsFilesUsingRoslyn(IconType iconType, Dictionary<string, IReadOnlyCollection<Icon>> groupedIcons, string folder)
     {
+        ArgumentNullException.ThrowIfNull(groupedIcons);
+
         foreach (var group in groupedIcons)
         {
             var family = group.Key;

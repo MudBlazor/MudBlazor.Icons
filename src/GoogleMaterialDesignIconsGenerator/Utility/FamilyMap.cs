@@ -79,9 +79,19 @@ public static class FamilyMap
         };
     }
 
-    public static bool IsMaterialIconFamily(string family) => family.StartsWith(MaterialIconsPrefix, StringComparison.OrdinalIgnoreCase);
+    public static bool IsMaterialIconFamily(string family)
+    {
+        ArgumentNullException.ThrowIfNull(family);
 
-    public static bool IsMaterialSymbolFamily(string family) => family.StartsWith(MaterialSymbolsPrefix, StringComparison.OrdinalIgnoreCase);
+        return family.StartsWith(MaterialIconsPrefix, StringComparison.OrdinalIgnoreCase);
+    }
+
+    public static bool IsMaterialSymbolFamily(string family)
+    {
+        ArgumentNullException.ThrowIfNull(family);
+
+        return family.StartsWith(MaterialSymbolsPrefix, StringComparison.OrdinalIgnoreCase);
+    }
 
     public static string FamilyNameToCsharpClassName(string familyName)
     {

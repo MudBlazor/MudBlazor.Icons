@@ -19,8 +19,10 @@ public static class IconFilter
         return groupedIcons;
     }
 
-    public static IReadOnlyCollection<Icon> FilterByFamily(Metadata metadata, IconType iconType)
+    public static IReadOnlyCollection<Icon> FilterByFamily(IconsMetadata metadata, IconType iconType)
     {
+        ArgumentNullException.ThrowIfNull(metadata);
+
         return metadata.Icons
             .Where(icon => !icon.UnsupportedFamilies.Any(family => FamilyMap.IsSelectedFamilyByIconType(iconType, family)))
             .ToList();

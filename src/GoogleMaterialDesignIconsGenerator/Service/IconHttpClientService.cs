@@ -18,12 +18,12 @@ public class IconHttpClientService : IDisposable
         };
         _jsonSerializerOptions = new JsonSerializerOptions
         {
-            TypeInfoResolver = MetadataJsonSerializerContext.Default
+            TypeInfoResolver = IconMetadataJsonSerializerContext.Default
         };
 
     }
 
-    public async Task<Metadata> ParseIconsAsync()
+    public async Task<IconsMetadata> ParseIconsAsync()
     {
         var json = await _httpClient.GetStringAsync(new Uri("metadata/icons?incomplete=1&key=material_symbols", UriKind.Relative)).ConfigureAwait(false);
         using var reader = new StringReader(json);
@@ -31,7 +31,7 @@ public class IconHttpClientService : IDisposable
         await reader.ReadLineAsync().ConfigureAwait(false);
         var validJson = await reader.ReadToEndAsync().ConfigureAwait(false);
 
-        var metadata = JsonSerializer.Deserialize<Metadata>(validJson, _jsonSerializerOptions);
+        var metadata = JsonSerializer.Deserialize<IconsMetadata>(validJson, _jsonSerializerOptions);
         if (metadata is null)
         {
             throw new InvalidOperationException("Response is null");

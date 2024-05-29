@@ -5,7 +5,7 @@ namespace GoogleMaterialDesignIconsGenerator.Generator;
 
 public interface IGenerator
 {
-    public string Namespace { get; }
+    public string RootNamespace { get; }
 
     CompilationUnitSyntax GetCompilationUnitSyntax(KeyValuePair<string, IReadOnlyCollection<Icon>> group, string className, string familyPath);
 }
