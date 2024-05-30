@@ -12,5 +12,5 @@ public static class GeneratorFactory
             IconType.MaterialSymbols => new MaterialSymbolsGenerator(),
             _ => throw new InvalidOperationException($"No generator found for icon type {iconType}!")
         };
-    } 
+    }
 }
