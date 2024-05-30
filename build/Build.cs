@@ -39,7 +39,7 @@ class Build : NukeBuild
     ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
     ///   - Microsoft VSCode           https://nuke.build/vscode
 
-    public static int Main () => Execute<Build>(x => x.Compile);
+    public static int Main() => Execute<Build>(x => x.Compile);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = Configuration.Release;
@@ -47,6 +47,8 @@ class Build : NukeBuild
     [Parameter] string NugetApiUrl = "https://api.nuget.org/v3/index.json"; //default
     [Parameter][Secret] readonly string NugetKey;
     [Parameter][Secret] readonly string GithubToken;
+
+    bool RunFormatAnalyzers => false;
 
     bool IsTag => GitHubActions.Instance?.Ref?.StartsWith("refs/tags/") ?? false;
 
@@ -74,8 +76,23 @@ class Build : NukeBuild
                 .SetProjectFile(Solution));
         });
 
+    Target VerifyFormat => _ => _
+        .After(Restore)
+        .Description("Verify code formatting for the solution.")
+        .Executes(() =>
+        {
+            DotNet($"format whitespace {Solution.Path} --verify-no-changes ");
+
+            DotNet($"format style {Solution.Path} --verify-no-changes ");
+
+            if (RunFormatAnalyzers)
+            {
+                DotNet($"format analyzers {Solution.Path} --verify-no-changes ");
+            }
+        });
+
     Target Compile => _ => _
-        .DependsOn(Restore)
+        .DependsOn(Restore, VerifyFormat)
         .Executes(() =>
         {
             DotNetBuild(s => s
@@ -89,7 +106,8 @@ class Build : NukeBuild
         .Produces(PackagesDirectory / "*.nupkg")
         .Produces(PackagesDirectory / "*.snupkg")
         .Requires(() => Configuration.Equals(Configuration.Release))
-        .Executes(() => {
+        .Executes(() =>
+        {
             DotNetPack(_ => _
                 .Apply(PackSettings));
 
