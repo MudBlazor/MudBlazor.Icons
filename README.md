@@ -1,5 +1,9 @@
 # MudBlazor Icons
 
+[![GitHub](https://img.shields.io/github/license/garderoben/mudblazor?color=%23594ae2&style=flat-square)](https://github.com/Garderoben/MudBlazor.Templates/blob/master/LICENSE)
+[![Discord](https://img.shields.io/discord/786656789310865418?color=%237289da&label=Discord&logo=discord&logoColor=%237289da&style=flat-square)](https://discord.gg/mudblazor)
+[![Twitter](https://img.shields.io/twitter/follow/MudBlazor?color=1DA1F2&label=Twitter&logo=Twitter&style=flat-square)](https://twitter.com/MudBlazor)
+
 Welcome to the MudBlazor Icons repository. This project provides icon packs for MudBlazor, leveraging Google's Material Icons and Material Symbols.
 
 ## Icon Packs
