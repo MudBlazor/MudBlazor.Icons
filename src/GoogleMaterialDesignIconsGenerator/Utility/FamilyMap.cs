@@ -112,6 +112,7 @@ public static class FamilyMap
     public static string FamilyNameToCsharpClassName(string familyName)
     {
         ArgumentNullException.ThrowIfNull(familyName);
+
         return familyName switch
         {
             // Material Symbols
@@ -133,6 +134,7 @@ public static class FamilyMap
     public static string FamilyNameToHtmlClassName(string familyName)
     {
         ArgumentNullException.ThrowIfNull(familyName);
+
         return familyName switch
         {
             // Material Symbols

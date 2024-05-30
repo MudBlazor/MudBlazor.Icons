@@ -18,16 +18,16 @@ public class Icon : IEquatable<Icon>
     public int Codepoint { get; init; }
 
     [JsonPropertyName("unsupported_families")]
-    public IReadOnlyCollection<string> UnsupportedFamilies { get; init; } = ReadOnlyCollection<string>.Empty;
+    public IReadOnlyCollection<string> UnsupportedFamilies { get; init; } = [];
 
     [JsonPropertyName("categories")]
-    public IReadOnlyCollection<string> Categories { get; init; } = ReadOnlyCollection<string>.Empty;
+    public IReadOnlyCollection<string> Categories { get; init; } = [];
 
     [JsonPropertyName("tags")]
-    public IReadOnlyCollection<string> Tags { get; init; } = ReadOnlyCollection<string>.Empty;
+    public IReadOnlyCollection<string> Tags { get; init; } = [];
 
     [JsonPropertyName("sizes_px")]
-    public IReadOnlyCollection<int> SizesPx { get; init; } = ReadOnlyCollection<int>.Empty;
+    public IReadOnlyCollection<int> SizesPx { get; init; } = [];
 
     public bool Equals(Icon? other)
     {

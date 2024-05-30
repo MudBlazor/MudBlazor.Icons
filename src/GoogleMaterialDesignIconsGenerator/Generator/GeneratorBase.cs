@@ -59,7 +59,8 @@ public abstract class GeneratorBase : IGenerator
 
     private static ClassDeclarationSyntax GenerateFamilyClass(KeyValuePair<string, IReadOnlyCollection<Icon>> group, string className, string familyPath)
     {
-        return SyntaxFactory.ClassDeclaration(className)
+        return SyntaxFactory
+            .ClassDeclaration(className)
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.StaticKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
             .AddMembers(group.Value.Select(icon => GenerateIconField(icon, familyPath)).Cast<MemberDeclarationSyntax>().ToArray());
     }
@@ -67,6 +68,7 @@ public abstract class GeneratorBase : IGenerator
     private static bool IsKeyword(string keyword)
     {
         var syntaxKind = SyntaxFacts.GetKeywordKind(keyword);
+
         return SyntaxFacts.IsKeywordKind(syntaxKind);
     }
 

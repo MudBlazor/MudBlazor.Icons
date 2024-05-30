@@ -20,17 +20,17 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
     "continuous",
     GitHubActionsImage.UbuntuLatest,
     FetchDepth = 0,
-    On = new[] { GitHubActionsTrigger.Push },
+    On = [GitHubActionsTrigger.Push],
     PublishArtifacts = true,
-    InvokedTargets = new[] { nameof(Compile), nameof(Pack) })]
+    InvokedTargets = [nameof(Compile), nameof(Pack)])]
 [GitHubActions(
     "release",
     GitHubActionsImage.UbuntuLatest,
     FetchDepth = 0,
-    OnPushTags = new[] { @"\d+\.\d+\.\d+" },
+    OnPushTags = [@"\d+\.\d+\.\d+"],
     PublishArtifacts = true,
-    InvokedTargets = new[] { nameof(Push), nameof(PushGithubNuget) },
-    ImportSecrets = new[] { nameof(NugetKey), nameof(GithubToken) })]
+    InvokedTargets = [nameof(Push), nameof(PushGithubNuget)],
+    ImportSecrets = [nameof(NugetKey), nameof(GithubToken)])]
 class Build : NukeBuild
 {
     /// Support plugins are available for:
@@ -44,7 +44,7 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = Configuration.Release;
 
-    [Parameter] string NugetApiUrl = "https://api.nuget.org/v3/index.json"; //default
+    [Parameter] readonly string NugetApiUrl = "https://api.nuget.org/v3/index.json"; //default
     [Parameter][Secret] readonly string NugetKey;
     [Parameter][Secret] readonly string GithubToken;
 

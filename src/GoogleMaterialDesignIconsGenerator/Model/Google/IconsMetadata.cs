@@ -14,8 +14,8 @@ public class IconsMetadata
 #pragma warning restore CA1056 // URI-like properties should not be strings
 
     [JsonPropertyName("families")]
-    public IReadOnlyCollection<string> Families { get; init; } = ReadOnlyCollection<string>.Empty;
+    public IReadOnlyCollection<string> Families { get; init; } = [];
 
     [JsonPropertyName("icons")]
-    public IReadOnlyCollection<Icon> Icons { get; init; } = ReadOnlyCollection<Icon>.Empty;
+    public IReadOnlyCollection<Icon> Icons { get; init; } = [];
 }
