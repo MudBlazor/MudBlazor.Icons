@@ -21,10 +21,10 @@
     <Authors>Garderoben, Henon and Contributors</Authors>
     <Copyright>Copyright 2024 MudBlazor</Copyright>
     <Description>Official Material Symbols pack for MudBlazor.</Description>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://mudblazor.com/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MudBlazor/MudBlazor.Icons</RepositoryUrl>
     <PackageTags>MudBlazor, Material Symbols, Material, Symbols, Icons, Blazor, Blazor Library</PackageTags>
+    <RepositoryType>git</RepositoryType>
     <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>material_symbols_usage.md</PackageReadmeFile>
@@ -42,7 +42,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <None Include="..\..\icon.png">
+    <None Include="..\..\$(PackageIcon)">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
