@@ -41,8 +41,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
+        fetch-depth: 0
         submodules: recursive
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 10.0.x
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
@@ -54,7 +59,13 @@ jobs:
     - if: matrix.build-mode == 'manual'
       name: 🛠️ Build
       shell: bash
-      run: ./build.sh Compile Pack
+      run: |
+        dotnet restore src/GoogleMaterialDesignIconsGenerator/GoogleMaterialDesignIconsGenerator.csproj
+        dotnet restore src/MudBlazor.FontIcons.MaterialIcons/MudBlazor.FontIcons.MaterialIcons.csproj
+        dotnet restore src/MudBlazor.FontIcons.MaterialSymbols/MudBlazor.FontIcons.MaterialSymbols.csproj
+        dotnet build src/GoogleMaterialDesignIconsGenerator/GoogleMaterialDesignIconsGenerator.csproj --configuration Release --no-restore
+        dotnet build src/MudBlazor.FontIcons.MaterialIcons/MudBlazor.FontIcons.MaterialIcons.csproj --configuration Release --no-restore
+        dotnet build src/MudBlazor.FontIcons.MaterialSymbols/MudBlazor.FontIcons.MaterialSymbols.csproj --configuration Release --no-restore
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
