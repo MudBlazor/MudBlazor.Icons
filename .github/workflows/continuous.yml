@@ -2,7 +2,6 @@ name: continuous
 
 on:
   push:
-  pull_request:
 
 env:
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
