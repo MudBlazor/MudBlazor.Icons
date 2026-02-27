@@ -51,14 +51,28 @@ public class IconHttpClientService : IDisposable
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(destinationFolderPath);
 
-        Directory.CreateDirectory(destinationFolderPath);
+        try
+        {
+            Directory.CreateDirectory(destinationFolderPath);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            throw new InvalidOperationException($"Failed to prepare destination folder '{destinationFolderPath}' for Material Symbols fonts.", ex);
+        }
 
         foreach (var (sourceFileName, targetFileName) in MaterialSymbolsFontFiles)
         {
             var fileUrl = new Uri($"{GoogleMaterialDesignIconsRawUrl}{sourceFileName}");
-            var fileContent = await _httpClient.GetByteArrayAsync(fileUrl, cancellationToken).ConfigureAwait(false);
-            var destinationPath = Path.Combine(destinationFolderPath, targetFileName);
-            await File.WriteAllBytesAsync(destinationPath, fileContent, cancellationToken).ConfigureAwait(false);
+            try
+            {
+                var fileContent = await _httpClient.GetByteArrayAsync(fileUrl, cancellationToken).ConfigureAwait(false);
+                var destinationPath = Path.Combine(destinationFolderPath, targetFileName);
+                await File.WriteAllBytesAsync(destinationPath, fileContent, cancellationToken).ConfigureAwait(false);
+            }
+            catch (Exception ex) when (ex is HttpRequestException or IOException)
+            {
+                throw new InvalidOperationException($"Failed to download and save Material Symbols font '{sourceFileName}' from '{fileUrl}'.", ex);
+            }
         }
     }
 
