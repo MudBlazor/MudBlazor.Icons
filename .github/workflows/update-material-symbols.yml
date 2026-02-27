@@ -1,0 +1,83 @@
+name: update-material-symbols
+
+on:
+  schedule:
+    - cron: '0 3 1 */3 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+
+jobs:
+  update:
+    name: update
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - name: Cache NuGet packages
+        uses: actions/cache@v5
+        with:
+          key: ${{ github.repository }}-nuget-${{ hashFiles('**/*.csproj') }}
+          path: ${{ env.NUGET_PACKAGES }}
+      - name: Restore generator
+        run: dotnet restore src/GoogleMaterialDesignIconsGenerator/GoogleMaterialDesignIconsGenerator.csproj
+      - name: Generate Material Symbols
+        run: dotnet run --project src/GoogleMaterialDesignIconsGenerator/GoogleMaterialDesignIconsGenerator.csproj --configuration Release --no-restore -- materialsymbols
+      - name: Check Material Symbols font changes
+        id: changes
+        run: |
+          if git diff --quiet -- src/MudBlazor.FontIcons.MaterialSymbols/wwwroot/font/; then
+            echo "has_font_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_font_changes=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Commit Material Symbols update
+        if: steps.changes.outputs.has_font_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/MudBlazor.FontIcons.MaterialSymbols/
+          git commit -m "chore: update material symbols"
+      - name: Create next patch tag
+        if: steps.changes.outputs.has_font_changes == 'true'
+        id: next_tag
+        shell: bash
+        run: |
+          git fetch --force --tags
+
+          latest_tag="$(git tag -l | grep -E '^[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.-]+)?$' | sort -V | tail -n1)"
+          if [[ -z "$latest_tag" ]]; then
+            major=0
+            minor=0
+            patch=0
+          else
+            core_version="${latest_tag%%-*}"
+            IFS='.' read -r major minor patch <<< "$core_version"
+          fi
+
+          next_patch=$((patch + 1))
+          next_tag="${major}.${minor}.${next_patch}"
+          while git show-ref --tags --verify --quiet "refs/tags/${next_tag}"; do
+            next_patch=$((next_patch + 1))
+            next_tag="${major}.${minor}.${next_patch}"
+          done
+
+          git tag "$next_tag"
+          echo "tag=$next_tag" >> "$GITHUB_OUTPUT"
+      - name: Push commit and tag
+        if: steps.changes.outputs.has_font_changes == 'true'
+        run: |
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+          git push origin "${{ steps.next_tag.outputs.tag }}"
+      - name: No font changes
+        if: steps.changes.outputs.has_font_changes != 'true'
+        run: echo "No changes in src/MudBlazor.FontIcons.MaterialSymbols/wwwroot/font/."
