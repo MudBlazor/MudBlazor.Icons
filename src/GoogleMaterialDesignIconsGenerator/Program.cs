@@ -24,7 +24,13 @@ public static class Program
         var metadata = await client.ParseIconsAsync().ConfigureAwait(false);
         var filteredIcons = Utility.IconFilter.FilterByFamily(metadata, iconType);
         var groupedIcons = Utility.IconFilter.GroupIconsByFamilies(filteredIcons, iconType);
+        var outputFolder = $"../../../../MudBlazor.FontIcons.{iconType.GetDescription()}";
 
-        codeGenerator.GenerateCsFilesUsingRoslyn(iconType, groupedIcons, folder: $"../../../../MudBlazor.FontIcons.{iconType.GetDescription()}");
+        codeGenerator.GenerateCsFilesUsingRoslyn(iconType, groupedIcons, folder: outputFolder);
+
+        if (iconType == IconType.MaterialSymbols)
+        {
+            await client.DownloadMaterialSymbolsFontsAsync(Path.Combine(outputFolder, "wwwroot", "font")).ConfigureAwait(false);
+        }
     }
 }
