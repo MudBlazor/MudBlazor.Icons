@@ -62,7 +62,7 @@ public class IconHttpClientService : IDisposable
 
         foreach (var (sourceFileName, targetFileName) in MaterialSymbolsFontFiles)
         {
-            var fileUrl = new Uri($"{GoogleMaterialDesignIconsRawUrl}{sourceFileName}");
+            var fileUrl = new Uri(new Uri(GoogleMaterialDesignIconsRawUrl), Uri.EscapeDataString(sourceFileName));
             try
             {
                 var fileContent = await _httpClient.GetByteArrayAsync(fileUrl, cancellationToken).ConfigureAwait(false);
