@@ -16,7 +16,7 @@ public static class Program
         var metadata = await client.ParseIconsAsync().ConfigureAwait(false);
         var filteredIcons = Utility.IconFilter.FilterByFamily(metadata, iconType);
         var groupedIcons = Utility.IconFilter.GroupIconsByFamilies(filteredIcons, iconType);
-        var outputFolder = $"../../../../MudBlazor.FontIcons.{iconType.GetDescription()}";
+        var outputFolder = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, $"../../../../MudBlazor.FontIcons.{iconType.GetDescription()}"));
 
         codeGenerator.GenerateCsFilesUsingRoslyn(iconType, groupedIcons, folder: outputFolder);
 
