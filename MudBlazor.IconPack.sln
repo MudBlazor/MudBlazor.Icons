@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.10.34916.146
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11505.172 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudBlazor.FontIcons.MaterialSymbols", "src\MudBlazor.FontIcons.MaterialSymbols\MudBlazor.FontIcons.MaterialSymbols.csproj", "{57334B6A-1E52-4571-B01A-8986A04877C0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleMaterialDesignIconsGenerator", "src\GoogleMaterialDesignIconsGenerator\GoogleMaterialDesignIconsGenerator.csproj", "{451E5BC8-C1D9-46DA-8151-B3A204300562}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{62C839DE-403F-4001-AF1A-32DCCB75DB7F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudBlazor.FontIcons.MaterialIcons", "src\MudBlazor.FontIcons.MaterialIcons\MudBlazor.FontIcons.MaterialIcons.csproj", "{AD04F39B-1A24-4B64-BF44-0E649168B85D}"
 EndProject
@@ -25,8 +23,6 @@ Global
 		{451E5BC8-C1D9-46DA-8151-B3A204300562}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{451E5BC8-C1D9-46DA-8151-B3A204300562}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{451E5BC8-C1D9-46DA-8151-B3A204300562}.Release|Any CPU.Build.0 = Release|Any CPU
-		{62C839DE-403F-4001-AF1A-32DCCB75DB7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62C839DE-403F-4001-AF1A-32DCCB75DB7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD04F39B-1A24-4B64-BF44-0E649168B85D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD04F39B-1A24-4B64-BF44-0E649168B85D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD04F39B-1A24-4B64-BF44-0E649168B85D}.Release|Any CPU.ActiveCfg = Release|Any CPU
