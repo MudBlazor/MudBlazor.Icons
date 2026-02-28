@@ -39,7 +39,7 @@ jobs:
           dotnet pack src/MudBlazor.FontIcons.MaterialIcons/MudBlazor.FontIcons.MaterialIcons.csproj --configuration Release --no-build --output artifacts/packages
           dotnet pack src/MudBlazor.FontIcons.MaterialSymbols/MudBlazor.FontIcons.MaterialSymbols.csproj --configuration Release --no-build --output artifacts/packages
       - name: Publish packages artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: packages
           path: artifacts/packages
