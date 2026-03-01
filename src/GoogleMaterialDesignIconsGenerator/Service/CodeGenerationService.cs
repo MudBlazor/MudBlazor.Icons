@@ -26,5 +26,4 @@ public class CodeGenerationService
             File.WriteAllText(path, code);
         }
     }
-
 }

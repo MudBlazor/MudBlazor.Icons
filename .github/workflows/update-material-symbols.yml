@@ -31,7 +31,7 @@ jobs:
       - name: Restore generator
         run: dotnet restore src/GoogleMaterialDesignIconsGenerator/GoogleMaterialDesignIconsGenerator.csproj
       - name: Generate Material Symbols
-        run: dotnet run --project src/GoogleMaterialDesignIconsGenerator/GoogleMaterialDesignIconsGenerator.csproj --configuration Release --no-restore -- materialsymbols
+        run: dotnet run --project src/GoogleMaterialDesignIconsGenerator/GoogleMaterialDesignIconsGenerator.csproj --configuration Release --no-restore -- --icon-type MaterialSymbols
       - name: Check Material Symbols font changes
         id: changes
         run: |
