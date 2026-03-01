@@ -33,13 +33,14 @@ public sealed class GenerateCommand : AsyncCommand<GenerateCommandSettings>
 
     private static IconType ResolveIconType(GenerateCommandSettings settings)
     {
-        var rawIconType = string.IsNullOrWhiteSpace(settings.IconType)
-            ? settings.LegacyIconType
-            : settings.IconType;
-
-        if (!string.IsNullOrWhiteSpace(rawIconType))
+        if (settings.IconType is IconType iconTypeFromOption)
         {
-            return IconTypeParser.Parse(rawIconType);
+            return iconTypeFromOption;
+        }
+
+        if (settings.LegacyIconType is IconType iconTypeFromArgument)
+        {
+            return iconTypeFromArgument;
         }
 
         return AnsiConsole.Prompt(
