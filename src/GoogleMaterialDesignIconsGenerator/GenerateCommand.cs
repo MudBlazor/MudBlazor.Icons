@@ -33,14 +33,9 @@ public sealed class GenerateCommand : AsyncCommand<GenerateCommandSettings>
 
     private static IconType ResolveIconType(GenerateCommandSettings settings)
     {
-        if (settings.IconType is IconType iconTypeFromOption)
+        if (settings.IconType is { } iconTypeFromOption)
         {
             return iconTypeFromOption;
-        }
-
-        if (settings.LegacyIconType is IconType iconTypeFromArgument)
-        {
-            return iconTypeFromArgument;
         }
 
         return AnsiConsole.Prompt(
