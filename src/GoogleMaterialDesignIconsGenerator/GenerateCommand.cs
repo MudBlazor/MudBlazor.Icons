@@ -10,7 +10,6 @@ public sealed class GenerateCommand : AsyncCommand<GenerateCommandSettings>
 {
     public override async Task<int> ExecuteAsync(CommandContext context, GenerateCommandSettings settings, CancellationToken cancellationToken)
     {
-        _ = context;
         ArgumentNullException.ThrowIfNull(settings);
         var iconType = ResolveIconType(settings);
 
@@ -43,9 +42,6 @@ public sealed class GenerateCommand : AsyncCommand<GenerateCommandSettings>
                 .Title("What [green]icon[/] pack to generate?")
                 .PageSize(10)
                 .MoreChoicesText("[grey](Move up and down to reveal more options)[/]")
-                .AddChoices([
-                    IconType.MaterialIcons,
-                    IconType.MaterialSymbols
-                ]));
+                .AddChoices(IconType.MaterialIcons, IconType.MaterialSymbols));
     }
 }
