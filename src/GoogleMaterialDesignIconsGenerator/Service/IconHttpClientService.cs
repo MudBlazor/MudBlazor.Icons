@@ -95,7 +95,18 @@ public class IconHttpClientService : IDisposable
             throw new InvalidOperationException($"Failed to resolve .woff2 URL from Google Fonts CSS for '{familyName}'.");
         }
 
-        return new Uri(match.Groups["href"].Value, UriKind.Absolute);
+        if (!Uri.TryCreate(match.Groups["href"].Value, UriKind.Absolute, out var uri))
+        {
+            throw new InvalidOperationException($"Resolved an invalid .woff2 URL from Google Fonts CSS for '{familyName}'.");
+        }
+
+        if (!uri.Scheme.Equals(Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase) ||
+            !uri.Host.Equals("fonts.gstatic.com", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException($"Resolved an unexpected .woff2 URL host '{uri.Host}' from Google Fonts CSS for '{familyName}'.");
+        }
+
+        return uri;
     }
 
     public void Dispose()
