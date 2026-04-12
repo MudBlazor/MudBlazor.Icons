@@ -20,9 +20,9 @@ public static class Program
 
         codeGenerator.GenerateCsFilesUsingRoslyn(iconType, groupedIcons, folder: outputFolder);
 
-        if (iconType == IconType.MaterialSymbols)
+        if (iconType == IconType.MaterialSymbols && ShouldDownloadRawVariableFonts(args))
         {
-            await client.DownloadMaterialSymbolsFontsAsync(Path.Combine(outputFolder, "wwwroot", "font")).ConfigureAwait(false);
+            await client.DownloadMaterialSymbolsVariableFontsAsync(Path.Combine(outputFolder, "wwwroot", "font")).ConfigureAwait(false);
         }
     }
 
@@ -69,8 +69,31 @@ public static class Program
             return true;
         }
 
-        iconType = ParseIconType(args[0]);
-        return true;
+        foreach (var arg in args)
+        {
+            if (arg.StartsWith("-", StringComparison.Ordinal))
+            {
+                continue;
+            }
+
+            iconType = ParseIconType(arg);
+            return true;
+        }
+
+        return false;
+    }
+
+    private static bool ShouldDownloadRawVariableFonts(IReadOnlyList<string> args)
+    {
+        foreach (var arg in args)
+        {
+            if (arg.Equals("--download-raw-variable-fonts", StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static IconType ParseIconType(string value)

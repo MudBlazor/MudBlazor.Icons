@@ -48,22 +48,13 @@ public class IconHttpClientService : IDisposable
     }
 
     /// <summary>
-    /// Downloads Material Symbols font files into <paramref name="destinationFolderPath"/>.
+    /// Downloads raw Material Symbols variable font files into <paramref name="destinationFolderPath"/>.
     /// </summary>
     /// <param name="destinationFolderPath">Destination folder for downloaded font files.</param>
-    /// <param name="includeRawVariableFonts">
-    /// When <see langword="true"/>, downloads raw variable fonts from the upstream repository.
-    /// When <see langword="false"/> (default), raw variable font downloads are skipped.
-    /// </param>
     /// <param name="cancellationToken">Token used to cancel download and file write operations.</param>
-    public async Task DownloadMaterialSymbolsFontsAsync(string destinationFolderPath, bool includeRawVariableFonts = false, CancellationToken cancellationToken = default)
+    public async Task DownloadMaterialSymbolsVariableFontsAsync(string destinationFolderPath, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(destinationFolderPath);
-
-        if (!includeRawVariableFonts)
-        {
-            return;
-        }
 
         try
         {
