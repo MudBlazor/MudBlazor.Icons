@@ -59,7 +59,7 @@ This allows you to access the icons like this:
 
 ## Loading tradeoffs
 
-Material Symbols constants in this package are ligature-based strings (for example `material-symbols-rounded/weight`).
+Material Symbols constants in this package are ligature-based strings (for example the ligature name `weight`).
 Ligature rendering can still show readable fallback text briefly on very first load in some environments.
 
 If your UI requires a strict "never show fallback text" behavior, prefer SVG icons.

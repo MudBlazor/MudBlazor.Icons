@@ -8,7 +8,7 @@ public class IconHttpClientService : IDisposable
 {
     public const string GoogleFontUrl = "http://fonts.google.com/";
     public const string GoogleFontsCssApiUrl = "https://fonts.googleapis.com/css2";
-    private static readonly Regex Woff2UrlRegex = new(@"url\((['""]?)(?<href>https?://[^)'""]+?\.woff2)\1\)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static readonly Regex Woff2UrlRegex = new(@"url\((['""]?)(?<href>https://[^)'""]+?\.woff2)\1\)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
