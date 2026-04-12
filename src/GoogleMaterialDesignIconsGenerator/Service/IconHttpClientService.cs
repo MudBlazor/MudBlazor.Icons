@@ -47,9 +47,14 @@ public class IconHttpClientService : IDisposable
         return metadata;
     }
 
-    public async Task DownloadMaterialSymbolsFontsAsync(string destinationFolderPath, CancellationToken cancellationToken = default)
+    public async Task DownloadMaterialSymbolsFontsAsync(string destinationFolderPath, bool includeRawVariableFonts = false, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(destinationFolderPath);
+
+        if (!includeRawVariableFonts)
+        {
+            return;
+        }
 
         try
         {
