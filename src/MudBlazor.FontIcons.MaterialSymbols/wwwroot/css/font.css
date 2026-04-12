@@ -3,6 +3,7 @@
   font-family: 'Material Symbols Outlined';
   font-style: normal;
   font-weight: 400;
+  font-display: block;
   src: url(../font/MaterialSymbolsOutlined.woff2) format('woff2');
 }
 
@@ -10,6 +11,7 @@
   font-family: 'Material Symbols Rounded';
   font-style: normal;
   font-weight: 400;
+  font-display: block;
   src: url(../font/MaterialSymbolsRounded.woff2) format('woff2');
 }
 
@@ -17,6 +19,7 @@
   font-family: 'Material Symbols Sharp';
   font-style: normal;
   font-weight: 400;
+  font-display: block;
   src: url(../font/MaterialSymbolsSharp.woff2) format('woff2');
 }
 

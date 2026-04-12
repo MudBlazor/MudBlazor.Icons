@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.RegularExpressions;
 using GoogleMaterialDesignIconsGenerator.Model.Google;
 
 namespace GoogleMaterialDesignIconsGenerator.Service;
@@ -6,15 +7,16 @@ namespace GoogleMaterialDesignIconsGenerator.Service;
 public class IconHttpClientService : IDisposable
 {
     public const string GoogleFontUrl = "http://fonts.google.com/";
-    public const string GoogleMaterialDesignIconsRawUrl = "https://github.com/google/material-design-icons/raw/refs/heads/master/variablefont/";
+    public const string GoogleFontsCssApiUrl = "https://fonts.googleapis.com/css2";
+    private static readonly Regex Woff2UrlRegex = new(@"url\((['""]?)(?<href>https?://[^)'""]+?\.woff2)\1\)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
-    private static readonly (string SourceFileName, string TargetFileName)[] MaterialSymbolsFontFiles =
+    private static readonly (string FamilyName, string TargetFileName)[] MaterialSymbolsFontFiles =
     [
-        ("MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2", "MaterialSymbolsOutlined.woff2"),
-        ("MaterialSymbolsRounded[FILL,GRAD,opsz,wght].woff2", "MaterialSymbolsRounded.woff2"),
-        ("MaterialSymbolsSharp[FILL,GRAD,opsz,wght].woff2", "MaterialSymbolsSharp.woff2")
+        ("Material Symbols Outlined", "MaterialSymbolsOutlined.woff2"),
+        ("Material Symbols Rounded", "MaterialSymbolsRounded.woff2"),
+        ("Material Symbols Sharp", "MaterialSymbolsSharp.woff2")
     ];
 
     public IconHttpClientService()
@@ -23,6 +25,7 @@ public class IconHttpClientService : IDisposable
         {
             BaseAddress = new Uri(GoogleFontUrl)
         };
+        _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (compatible; MudBlazor.FontIcons.MaterialSymbols generator)");
         _jsonSerializerOptions = new JsonSerializerOptions
         {
             TypeInfoResolver = IconMetadataJsonSerializerContext.Default
@@ -60,20 +63,39 @@ public class IconHttpClientService : IDisposable
             throw new InvalidOperationException($"Failed to prepare destination folder '{destinationFolderPath}' for Material Symbols fonts.", ex);
         }
 
-        foreach (var (sourceFileName, targetFileName) in MaterialSymbolsFontFiles)
+        foreach (var (familyName, targetFileName) in MaterialSymbolsFontFiles)
         {
-            var fileUrl = new Uri(new Uri(GoogleMaterialDesignIconsRawUrl), Uri.EscapeDataString(sourceFileName));
             try
             {
+                var cssFileUrl = BuildMaterialSymbolsCssUri(familyName);
+                var cssContent = await _httpClient.GetStringAsync(cssFileUrl, cancellationToken).ConfigureAwait(false);
+                var fileUrl = ResolveWoff2Url(cssContent, familyName);
                 var fileContent = await _httpClient.GetByteArrayAsync(fileUrl, cancellationToken).ConfigureAwait(false);
                 var destinationPath = Path.Combine(destinationFolderPath, targetFileName);
                 await File.WriteAllBytesAsync(destinationPath, fileContent, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception ex) when (ex is HttpRequestException or IOException)
             {
-                throw new InvalidOperationException($"Failed to download and save Material Symbols font '{sourceFileName}' from '{fileUrl}'.", ex);
+                throw new InvalidOperationException($"Failed to download and save Material Symbols font for '{familyName}'.", ex);
             }
         }
+    }
+
+    private static Uri BuildMaterialSymbolsCssUri(string familyName)
+    {
+        var encodedFamily = Uri.EscapeDataString(familyName);
+        return new Uri($"{GoogleFontsCssApiUrl}?family={encodedFamily}:opsz,wght,FILL,GRAD@24,400,0,0&display=block", UriKind.Absolute);
+    }
+
+    private static Uri ResolveWoff2Url(string cssContent, string familyName)
+    {
+        var match = Woff2UrlRegex.Match(cssContent);
+        if (!match.Success)
+        {
+            throw new InvalidOperationException($"Failed to resolve .woff2 URL from Google Fonts CSS for '{familyName}'.");
+        }
+
+        return new Uri(match.Groups["href"].Value, UriKind.Absolute);
     }
 
     public void Dispose()
