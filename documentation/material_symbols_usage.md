@@ -15,12 +15,25 @@ To use the icons in your MudBlazor project, you can add the following CSS link t
 <link href="_content/MudBlazor.FontIcons.MaterialSymbols/css/font.min.css" rel="stylesheet" />
 ```
 
-The package is self-hosted and serves its font assets from `_content/MudBlazor.FontIcons.MaterialSymbols/`.
-
-For above-the-fold icons, preloading the style(s) you use can reduce first-paint delay:
+To reduce first-load flicker, preload the Material Symbols font files before loading the stylesheet:
 
 ```html
-<link rel="preload" href="_content/MudBlazor.FontIcons.MaterialSymbols/font/MaterialSymbolsRounded.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload"
+      href="_content/MudBlazor.FontIcons.MaterialSymbols/font/MaterialSymbolsRounded.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin>
+<link rel="preload"
+      href="_content/MudBlazor.FontIcons.MaterialSymbols/font/MaterialSymbolsOutlined.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin>
+<link rel="preload"
+      href="_content/MudBlazor.FontIcons.MaterialSymbols/font/MaterialSymbolsSharp.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin>
+<link href="_content/MudBlazor.FontIcons.MaterialSymbols/css/font.min.css" rel="stylesheet" />
 ```
 
 Alternatively, you can use the following CDN links:
@@ -56,10 +69,3 @@ This allows you to access the icons like this:
 ```
 
 **NB!** Please note that aliases do not work in normal Razor pages (https://github.com/dotnet/razor/issues/7670)!
-
-## Loading tradeoffs
-
-Material Symbols constants in this package are ligature-based strings (for example the ligature name `weight`).
-Ligature rendering can still show readable fallback text briefly on very first load in some environments.
-
-If your UI requires a strict "never show fallback text" behavior, prefer SVG icons.
