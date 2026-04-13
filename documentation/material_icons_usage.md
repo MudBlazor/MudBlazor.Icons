@@ -9,7 +9,13 @@
 | 1.0.0  => |     7.0.0-preview.4 =>      |     .NET 7 & NET 8      |
 
 
-To use the icons in your MudBlazor project while reducing first-load flicker, preload only the font variants you use before loading the stylesheet:
+To use the icons in your MudBlazor project, you can add the following CSS link to your HTML or Razor layout:
+
+```html
+<link href="_content/MudBlazor.FontIcons.MaterialIcons/css/font.min.css" rel="stylesheet" />
+```
+
+To reduce first-load flicker, preload the Material Symbols font files before loading the stylesheet:
 
 ```html
 <link rel="preload"
@@ -17,14 +23,28 @@ To use the icons in your MudBlazor project while reducing first-load flicker, pr
       as="font"
       type="font/woff2"
       crossorigin>
+<link rel="preload"
+      href="_content/MudBlazor.FontIcons.MaterialIcons/font/MaterialIconsOutlined.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin>
+<link rel="preload"
+      href="_content/MudBlazor.FontIcons.MaterialIcons/font/MaterialIconsRound.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin>
+<link rel="preload"
+      href="_content/MudBlazor.FontIcons.MaterialIcons/font/MaterialIconsSharp.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin>
+<link rel="preload"
+      href="_content/MudBlazor.FontIcons.MaterialIcons/font/MaterialIconsTwoTone.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin>
 <link href="_content/MudBlazor.FontIcons.MaterialIcons/css/font.min.css" rel="stylesheet" />
 ```
-
-Other available variants that can be preloaded as needed:
-- `_content/MudBlazor.FontIcons.MaterialIcons/font/MaterialIconsOutlined.woff2`
-- `_content/MudBlazor.FontIcons.MaterialIcons/font/MaterialIconsRound.woff2`
-- `_content/MudBlazor.FontIcons.MaterialIcons/font/MaterialIconsSharp.woff2`
-- `_content/MudBlazor.FontIcons.MaterialIcons/font/MaterialIconsTwoTone.woff2`
 
 Alternatively, you can use the following CDN links:
 
