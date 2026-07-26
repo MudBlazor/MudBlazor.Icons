@@ -57,8 +57,4 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
   
-  <ItemGroup>
-    <PackageReference Include="MudBlazor" Version="9.0.0" />
-  </ItemGroup>
-
 </Project>
