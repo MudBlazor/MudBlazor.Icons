@@ -1,87 +1,50 @@
 # Contributing to MudBlazor Icons
 
-Thank you for your interest in contributing to MudBlazor Icons! We welcome contributions from the community and appreciate your efforts to improve this project.
+Thanks for helping improve MudBlazor Icons! Contributions of all kinds are welcome.
 
-## How to Contribute
+## Project layout
 
-### 1. Reporting Issues
+| Path | What it is |
+| :-- | :-- |
+| `src/MudBlazor.FontIcons.MaterialIcons/` | The Material Icons package: generated icon classes plus bundled fonts and CSS |
+| `src/MudBlazor.FontIcons.MaterialSymbols/` | The Material Symbols package: generated icon classes plus bundled fonts and CSS |
+| `src/GoogleMaterialDesignIconsGenerator/` | Console tool that regenerates the icon classes and fonts from Google's icon metadata |
+| `documentation/` | Usage guides, also packed as the NuGet package READMEs |
 
-If you encounter a bug or have a feature request, please create an issue on GitHub. When reporting an issue, please include:
-
-- A clear and descriptive title.
-- A detailed description of the problem or suggestion.
-- Steps to reproduce the issue (if applicable).
-- Any relevant logs or screenshots.
-
-### 2. Fork the Repository
-
-Before you start working on a feature or a bugfix, fork the repository to your GitHub account:
-
-1. Navigate to the [MudBlazor Icons repository](https://github.com/MudBlazor/MudBlazor.Icons).
-2. Click the "Fork" button in the upper right corner.
-
-### 3. Clone the Repository
-
-Clone the forked repository to your local machine:
+**The icon classes are generated.** Never hand-edit `Filled.cs`, `Outlined.cs`, and friends. Run the generator instead:
 
 ```bash
-git clone https://github.com/MudBlazor/MudBlazor.Icons.git
-cd MudBlazor.Icons
+dotnet run --project src/GoogleMaterialDesignIconsGenerator
 ```
 
-### 4. Create a Branch
+It prompts for which pack to regenerate (or takes it as an argument) and writes the updated classes and fonts into the package project.
 
-Create a new branch for your work. Use a descriptive name for your branch:
+## Reporting issues
+
+Found a bug or want a feature? [Open an issue](https://github.com/MudBlazor/MudBlazor.Icons/issues) with a descriptive title, what happened (or what you'd like), steps to reproduce if applicable, and any relevant logs or screenshots.
+
+## Submitting changes
+
+1. [Fork the repository](https://github.com/MudBlazor/MudBlazor.Icons) and clone your fork:
 
 ```bash
-git checkout -b feature/your-feature-name
+git clone https://github.com/<your-username>/MudBlazor.Icons.git
 ```
 
-### 5. Make Your Changes
+2. Create a descriptively named branch, such as `feature/your-feature-name`.
 
-Make your changes to the codebase. Ensure that your changes are well-documented and include appropriate tests where applicable.
+3. Make your changes. Follow the existing code style, and remember: icon classes go through the generator.
 
-### 6. Commit Your Changes
-
-Commit your changes with a clear and concise commit message:
-
-```bash
-git add .
-git commit -m "Add new feature: your feature description"
-```
-
-### 7. Push to GitHub
-
-Push your changes to your forked repository:
-
-```bash
-git push origin feature/your-feature-name
-```
-
-### 8. Create a Pull Request
-
-Navigate to the original repository and create a pull request:
-
-1. Go to the [pull requests section](https://github.com/MudBlazor/MudBlazor.Icons/pulls) of the original repository.
-2. Click "New pull request".
-3. Select your branch from the "compare" dropdown.
-4. Provide a clear title and description for your pull request.
-5. Click "Create pull request".
+4. Push the branch to your fork and [open a pull request](https://github.com/MudBlazor/MudBlazor.Icons/pulls) against `master`, explaining what you changed and why.
 
 ## Code of Conduct
 
-This project adheres to the Contributor Covenant [code of conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to the project maintainers.
-
-## Style Guide
-
-Please follow the project's coding style and conventions. Consistent code style helps maintain readability and ease of maintenance.
+This project follows the Contributor Covenant [code of conduct](CODE_OF_CONDUCT.md). By participating, you agree to uphold it.
 
 ## License
 
-By contributing to MudBlazor Font Icons, you agree that your contributions will be licensed under the [MIT License](LICENSE).
+By contributing, you agree that your contributions are licensed under the [MIT License](LICENSE).
 
-## Getting Help
+## Getting help
 
-If you need help or have any questions, feel free to open an issue on GitHub or reach out to the maintainers.
-
-Thank you for your contributions!
+Open an issue, or ask in the [MudBlazor Discord](https://discord.gg/mudblazor).
