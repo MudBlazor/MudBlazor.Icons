@@ -29,6 +29,21 @@
     },
     {
       "matchManagers": [
+        "nuget"
+      ],
+      "matchPackageNames": [
+        "Microsoft.AspNetCore.Components.Web"
+      ],
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "allowedVersions": "8.0.x",
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "matchManagers": [
         "github-actions"
       ],
       "matchUpdateTypes": [
