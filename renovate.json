@@ -37,7 +37,7 @@
       "matchUpdateTypes": [
         "patch"
       ],
-      "allowedVersions": "8.0.x",
+      "matchCurrentVersion": "8.0.x",
       "automerge": true,
       "automergeType": "pr",
       "platformAutomerge": true
