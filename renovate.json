@@ -25,13 +25,7 @@
       "matchPackageNames": [
         "Microsoft.AspNetCore.Components.Web"
       ],
-      "matchUpdateTypes": [
-        "patch"
-      ],
-      "allowedVersions": "8.0.x",
-      "automerge": true,
-      "automergeType": "pr",
-      "platformAutomerge": true
+      "allowedVersions": "<9.0.0"
     },
     {
       "matchManagers": [
@@ -40,7 +34,13 @@
       "matchPackageNames": [
         "Microsoft.AspNetCore.Components.Web"
       ],
-      "allowedVersions": "<9.0.0"
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "allowedVersions": "8.0.x",
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
     },
     {
       "matchManagers": [
