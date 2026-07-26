@@ -6,7 +6,7 @@
 
 | MudBlazor.FontIcons.MaterialSymbols  |    MudBlazor    |      .NET       |
 | :------------- | :-------------: | :-------------: |
-| 1.0.0 => | 9.0.0 => | .NET 8 and up |
+| 1.0.0 => | 7.0.0 => | .NET 8 and up |
 
 
 To use the icons in your MudBlazor project, you can add the following CSS link to your HTML or Razor layout:
