@@ -12,7 +12,20 @@
         "Microsoft.AspNetCore.Components.Web",
         "Microsoft.CodeAnalysis.CSharp",
         "Spectre.Console"
-      ]
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
+    },
+    {
+      "matchManagers": [
+        "nuget"
+      ],
+      "matchPackageNames": [
+        "Microsoft.AspNetCore.Components.Web"
+      ],
+      "allowedVersions": "<9.0.0"
     },
     {
       "matchManagers": [
