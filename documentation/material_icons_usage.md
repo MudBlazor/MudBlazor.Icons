@@ -3,9 +3,9 @@
 [![NuGet version](https://img.shields.io/nuget/v/MudBlazor.FontIcons.MaterialIcons?color=ff4081&label=nuget%20version&logo=nuget&style=flat-square)](https://www.nuget.org/packages/MudBlazor.FontIcons.MaterialIcons/)
 [![NuGet downloads](https://img.shields.io/nuget/dt/MudBlazor.FontIcons.MaterialIcons?color=ff4081&label=nuget%20downloads&logo=nuget&style=flat-square)](https://www.nuget.org/packages/MudBlazor.FontIcons.MaterialIcons/)
 
-`MudBlazor.FontIcons.MaterialIcons` is the official [MudBlazor](https://mudblazor.com/) icon pack for [Google's classic Material Icons](https://fonts.google.com/icons?icon.set=Material+Icons). It gives you **2,100+ icons in five styles** (Filled, Outlined, Rounded, Sharp, Two-Tone) as strongly typed C# constants with IntelliSense, backed by self-hosted icon fonts.
+`MudBlazor.FontIcons.MaterialIcons` puts [Google's classic Material Icons](https://fonts.google.com/icons?icon.set=Material+Icons) in your [MudBlazor](https://mudblazor.com/) app: 2,100+ icons in Filled, Outlined, Rounded, Sharp, and Two-Tone styles, each a strongly typed C# constant with IntelliSense, served by self-hosted fonts.
 
-> Looking for Google's newer, actively growing icon set? See the companion pack [MudBlazor.FontIcons.MaterialSymbols](https://www.nuget.org/packages/MudBlazor.FontIcons.MaterialSymbols/).
+> Want Google's newer, still-growing icon set? See [MudBlazor.FontIcons.MaterialSymbols](https://www.nuget.org/packages/MudBlazor.FontIcons.MaterialSymbols/).
 
 ## Install
 
@@ -13,27 +13,21 @@
 dotnet add package MudBlazor.FontIcons.MaterialIcons
 ```
 
-Or add it to your project file:
-
-```xml
-<PackageReference Include="MudBlazor.FontIcons.MaterialIcons" Version="*" />
-```
-
 Requires MudBlazor 7.0.0+ and .NET 8, 9, or 10.
 
 ## Add the stylesheet
 
-Add this line wherever your app loads the MudBlazor stylesheet — `App.razor` in a Blazor Web App, `wwwroot/index.html` in Blazor WebAssembly, or your host page in older Blazor Server templates:
+Add this next to your MudBlazor stylesheet (in `App.razor`, `wwwroot/index.html`, or your host page):
 
 ```html
 <link href="_content/MudBlazor.FontIcons.MaterialIcons/css/font.min.css" rel="stylesheet" />
 ```
 
-The fonts ship inside the package and are served from your own app — no CDN or internet connection required at runtime.
+The fonts ship in the package and are served by your app. No CDN, no internet required at runtime.
 
 ## Use an icon
 
-Pass any icon constant to `MudIcon`, or to any MudBlazor component with an icon parameter:
+Pass a constant to `MudIcon`, or to any MudBlazor component with an icon parameter:
 
 ```razor
 <MudIcon Icon="@MudBlazor.FontIcons.MaterialIcons.Outlined.Chat" />
@@ -43,37 +37,35 @@ Pass any icon constant to `MudIcon`, or to any MudBlazor component with an icon 
 <MudButton StartIcon="@MudBlazor.FontIcons.MaterialIcons.TwoTone.Download">Download</MudButton>
 ```
 
-To find an icon, browse [Material Icons on Google Fonts](https://fonts.google.com/icons?icon.set=Material+Icons) and convert the icon name to PascalCase: `shopping_cart` becomes `Filled.ShoppingCart`. Names that start with a digit are prefixed with an underscore: `10k` becomes `Filled._10K`.
+Browse [Material Icons on Google Fonts](https://fonts.google.com/icons?icon.set=Material+Icons) to find an icon, then PascalCase its name: `shopping_cart` becomes `Filled.ShoppingCart`. Names starting with a digit get an underscore: `10k` becomes `Filled._10K`.
 
 ## Available styles
 
-| C# class | Style | Example |
-| :-- | :-- | :-- |
-| `MaterialIcons.Filled` | Filled (the classic default) | `Filled.Home` |
-| `MaterialIcons.Outlined` | Outlined | `Outlined.Home` |
-| `MaterialIcons.Rounded` | Rounded corners | `Rounded.Home` |
-| `MaterialIcons.Sharp` | Squared corners | `Sharp.Home` |
-| `MaterialIcons.TwoTone` | Two-tone | `TwoTone.Home` |
+| C# class | Style |
+| :-- | :-- |
+| `MaterialIcons.Filled` | Filled, the classic default |
+| `MaterialIcons.Outlined` | Outlined |
+| `MaterialIcons.Rounded` | Rounded corners |
+| `MaterialIcons.Sharp` | Squared corners |
+| `MaterialIcons.TwoTone` | Two-tone |
 
-## Shorten icon names with an alias
+## Shorten names with an alias
 
-Typing the full namespace gets verbose. Add an alias to `_Imports.razor`:
+The full namespace is a mouthful. Alias it in `_Imports.razor`:
 
 ```razor
 @using MaterialIcons = MudBlazor.FontIcons.MaterialIcons
 ```
 
-Then use icons like this:
-
 ```razor
 <MudIcon Icon="@MaterialIcons.Outlined.Chat" />
 ```
 
-> **Note:** Due to a [Razor compiler limitation](https://github.com/dotnet/razor/issues/7670), `@using` aliases only work when declared in `_Imports.razor` — declaring the alias in an individual `.razor` page does not work.
+> **Note:** A [Razor compiler limitation](https://github.com/dotnet/razor/issues/7670) means aliases only work from `_Imports.razor`, not from individual `.razor` pages.
 
-## Optional: preload fonts to reduce flicker
+## Optional: preload fonts
 
-Browsers only download a font once the first icon appears, which can cause a brief flash of unstyled text. To avoid it, preload the fonts for the styles you use *before* the stylesheet link:
+Fonts download when the first icon appears, so icons can briefly flash as text. To avoid that, preload the styles you use, before the stylesheet link:
 
 ```html
 <link rel="preload"
@@ -81,34 +73,14 @@ Browsers only download a font once the first icon appears, which can cause a bri
       as="font"
       type="font/woff2"
       crossorigin>
-<link rel="preload"
-      href="_content/MudBlazor.FontIcons.MaterialIcons/font/MaterialIconsOutlined.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin>
-<link rel="preload"
-      href="_content/MudBlazor.FontIcons.MaterialIcons/font/MaterialIconsRound.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin>
-<link rel="preload"
-      href="_content/MudBlazor.FontIcons.MaterialIcons/font/MaterialIconsSharp.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin>
-<link rel="preload"
-      href="_content/MudBlazor.FontIcons.MaterialIcons/font/MaterialIconsTwoTone.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin>
 <link href="_content/MudBlazor.FontIcons.MaterialIcons/css/font.min.css" rel="stylesheet" />
 ```
 
-Only preload the styles you actually use — each preload downloads that font on every page load.
+The other styles follow the same pattern: `MaterialIconsOutlined.woff2`, `MaterialIconsRound.woff2`, `MaterialIconsSharp.woff2`, and `MaterialIconsTwoTone.woff2`. Preload only what you use; each preload is a download on every page load.
 
-## Optional: use the Google Fonts CDN instead
+## Optional: Google Fonts CDN
 
-If you prefer loading the fonts from Google's CDN rather than self-hosting, replace the package stylesheet with:
+Prefer Google's CDN? Swap the package stylesheet for:
 
 ```html
 <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
@@ -122,15 +94,13 @@ The C# constants work the same either way.
 
 ## Troubleshooting
 
-**The icon renders as text (e.g. "chat") instead of a glyph.**
-The font stylesheet isn't loaded. Check that the `<link>` tag from [Add the stylesheet](#add-the-stylesheet) is present and that the page can reach `_content/MudBlazor.FontIcons.MaterialIcons/css/font.min.css` (watch for 404s in the browser's network tab).
+**Icons render as text, like "chat".** The stylesheet isn't loading. Check the `<link>` tag and watch the browser's network tab for a 404 on `font.min.css`.
 
-**An alias like `@MaterialIcons.Outlined.X` doesn't compile.**
-Make sure the alias is declared in `_Imports.razor`, not in the page itself — see the note above.
+**An alias won't compile.** It has to live in `_Imports.razor`. See the note above.
 
 ## Related links
 
-- [MudBlazor.Icons repository](https://github.com/MudBlazor/MudBlazor.Icons) — source, issues, and contributing
-- [MudBlazor.FontIcons.MaterialSymbols](https://www.nuget.org/packages/MudBlazor.FontIcons.MaterialSymbols/) — companion pack for Google's current Material Symbols set
+- [MudBlazor.Icons repository](https://github.com/MudBlazor/MudBlazor.Icons): source, issues, contributing
+- [MudBlazor.FontIcons.MaterialSymbols](https://www.nuget.org/packages/MudBlazor.FontIcons.MaterialSymbols/): companion pack for Google's current Material Symbols set
 - [MudBlazor documentation](https://mudblazor.com/)
 - [Browse Material Icons on Google Fonts](https://fonts.google.com/icons?icon.set=Material+Icons)
