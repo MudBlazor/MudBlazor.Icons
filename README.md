@@ -26,8 +26,8 @@ Both icon packs support the following MudBlazor and .NET versions:
 
 | Package                           | MudBlazor Version       | .NET Version            |
 | :-------------------------------- | :----------------------:| :----------------------:|
-| MudBlazor.FontIcons.MaterialIcons | 7.0.0-preview.4 and up  | .NET 7 & .NET 8         |
-| MudBlazor.FontIcons.MaterialSymbols| 7.0.0-preview.4 and up  | .NET 7 & .NET 8         |
+| MudBlazor.FontIcons.MaterialIcons | 7.0.0 and up  | .NET 8 and up         |
+| MudBlazor.FontIcons.MaterialSymbols| 7.0.0 and up  | .NET 8 and up         |
 
 ## License
 
