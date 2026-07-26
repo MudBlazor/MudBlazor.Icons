@@ -21,10 +21,10 @@
     <Company>MudBlazor</Company>
     <Authors>Garderoben, Henon and Contributors</Authors>
     <Copyright>Copyright 2024 MudBlazor</Copyright>
-    <Description>Official Material Icons pack for MudBlazor.</Description>
+    <Description>Official Material Icons pack for MudBlazor. Over 2,100 Google Material Design icons in Filled, Outlined, Rounded, Sharp, and Two-Tone styles, each a strongly typed C# constant with IntelliSense. Fonts are self-hosted, so no CDN is required. Trimming and AOT compatible.</Description>
     <PackageProjectUrl>https://mudblazor.com/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MudBlazor/MudBlazor.Icons</RepositoryUrl>
-    <PackageTags>MudBlazor, Material Icons, Material, Icons, Blazor, Blazor Library</PackageTags>
+    <PackageTags>MudBlazor, Material Icons, Material Design, Icons, Icon Pack, Font Icons, Blazor, Blazor Library, Components, WebAssembly, WASM, dotnet</PackageTags>
     <RepositoryType>git</RepositoryType>
     <PackageIcon>icon.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
