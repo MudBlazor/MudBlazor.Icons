@@ -31,6 +31,25 @@ jobs:
       - name: Check code style
         run: dotnet format style MudBlazor.IconPack.slnx --no-restore --verify-no-changes
 
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+      - name: Cache NuGet packages
+        uses: actions/cache@v6
+        with:
+          key: ${{ github.repository }}-nuget-${{ hashFiles('**/*.csproj') }}
+          path: ${{ env.NUGET_PACKAGES }}
+      - name: Restore
+        run: dotnet restore test/MudBlazor.FontIcons.Tests/MudBlazor.FontIcons.Tests.csproj
+      - name: Test
+        run: dotnet test test/MudBlazor.FontIcons.Tests/MudBlazor.FontIcons.Tests.csproj --configuration Release --no-restore
+
   build-pack:
     name: build-pack
     runs-on: ubuntu-latest

@@ -21,6 +21,24 @@
       "enabled": false
     },
     {
+      "groupName": "test dependencies",
+      "matchManagers": [
+        "nuget"
+      ],
+      "matchFileNames": [
+        "test/**"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch",
+        "digest"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
       "matchManagers": [
         "github-actions"
       ],
