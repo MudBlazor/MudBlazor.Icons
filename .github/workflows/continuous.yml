@@ -26,7 +26,6 @@ jobs:
           path: ${{ env.NUGET_PACKAGES }}
       - name: Restore
         run: dotnet restore MudBlazor.IconPack.slnx
-      - uses: xt0rted/dotnet-format-problem-matcher@v1
       - name: Check whitespace formatting
         run: dotnet format whitespace MudBlazor.IconPack.slnx --no-restore --verify-no-changes
       - name: Check code style
