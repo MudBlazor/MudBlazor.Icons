@@ -20,7 +20,7 @@
     <IsPackable>true</IsPackable>
     <Company>MudBlazor</Company>
     <Authors>Garderoben, Henon and Contributors</Authors>
-    <Copyright>Copyright 2024 MudBlazor</Copyright>
+    <Copyright>Copyright 2026 MudBlazor</Copyright>
     <Description>Official Material Symbols pack for MudBlazor. Over 3,800 Google Material Design symbols in Outlined, Rounded, and Sharp styles, each a strongly typed C# constant with IntelliSense. Fonts are self-hosted, so no CDN is required. Trimming and AOT compatible.</Description>
     <PackageProjectUrl>https://mudblazor.com/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/MudBlazor/MudBlazor.Icons</RepositoryUrl>
