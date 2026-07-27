@@ -10,6 +10,28 @@ env:
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
 
 jobs:
+  format-check:
+    name: format-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+      - name: Cache NuGet packages
+        uses: actions/cache@v6
+        with:
+          key: ${{ github.repository }}-nuget-${{ hashFiles('**/*.csproj') }}
+          path: ${{ env.NUGET_PACKAGES }}
+      - name: Restore
+        run: dotnet restore MudBlazor.IconPack.slnx
+      - uses: xt0rted/dotnet-format-problem-matcher@v1
+      - name: Check whitespace formatting
+        run: dotnet format whitespace MudBlazor.IconPack.slnx --no-restore --verify-no-changes
+      - name: Check code style
+        run: dotnet format style MudBlazor.IconPack.slnx --no-restore --verify-no-changes
+
   build-pack:
     name: build-pack
     runs-on: ubuntu-latest
