@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <!-- Applies to every project in the repository, including the generator. -->
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Company>MudBlazor</Company>
+    <Authors>Garderoben, Henon and Contributors</Authors>
+    <Copyright>Copyright 2026 MudBlazor</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <AnalysisLevel>latest</AnalysisLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <!--
+    Shipping icon packs only. The generator is a build-time tool that produces the icon
+    classes and fonts; it targets a single TFM and is never packed, so none of the
+    multi-targeting, trimming, or package metadata below applies to it.
+  -->
+  <PropertyGroup Condition="$(MSBuildProjectName.StartsWith('MudBlazor.FontIcons'))">
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <!-- Icon constants are generated from Google's metadata and keep its naming (Filled._3d_rotation). -->
+    <NoWarn>CA1707;CA1708;CA1711</NoWarn>
+    <IsTrimmable>true</IsTrimmable>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <IsAotCompatible>true</IsAotCompatible>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectName.StartsWith('MudBlazor.FontIcons'))">
+    <IsPackable>true</IsPackable>
+    <PackageProjectUrl>https://mudblazor.com/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MudBlazor/MudBlazor.Icons</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup Condition="$(MSBuildProjectName.StartsWith('MudBlazor.FontIcons'))">
+    <None Include="$(MSBuildThisFileDirectory)$(PackageIcon)">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <SupportedPlatform Include="browser" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.29" />
+  </ItemGroup>
+
+</Project>
