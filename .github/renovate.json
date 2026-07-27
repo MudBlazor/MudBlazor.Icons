@@ -12,7 +12,6 @@
         "nuget"
       ],
       "matchPackageNames": [
-        "Microsoft.AspNetCore.Components.Web",
         "Microsoft.CodeAnalysis.CSharp",
         "Spectre.Console"
       ],
@@ -20,30 +19,6 @@
         "major"
       ],
       "enabled": false
-    },
-    {
-      "matchManagers": [
-        "nuget"
-      ],
-      "matchPackageNames": [
-        "Microsoft.AspNetCore.Components.Web"
-      ],
-      "allowedVersions": "<9.0.0"
-    },
-    {
-      "matchManagers": [
-        "nuget"
-      ],
-      "matchPackageNames": [
-        "Microsoft.AspNetCore.Components.Web"
-      ],
-      "matchUpdateTypes": [
-        "patch"
-      ],
-      "matchCurrentVersion": "8.0.x",
-      "automerge": true,
-      "automergeType": "pr",
-      "platformAutomerge": true
     },
     {
       "matchManagers": [
