@@ -3,6 +3,9 @@
   "extends": [
     "config:recommended"
   ],
+  "ignoreDeps": [
+    "dotnet-sdk"
+  ],
   "packageRules": [
     {
       "matchManagers": [
