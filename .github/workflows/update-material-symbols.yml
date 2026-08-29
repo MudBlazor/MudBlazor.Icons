@@ -7,14 +7,17 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 env:
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+  UPDATE_BRANCH: chore/update-material-symbols
 
 jobs:
   update:
     name: update
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
         with:
@@ -40,14 +43,7 @@ jobs:
           else
             echo "has_font_changes=true" >> "$GITHUB_OUTPUT"
           fi
-      - name: Commit Material Symbols update
-        if: steps.changes.outputs.has_font_changes == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/MudBlazor.FontIcons.MaterialSymbols/
-          git commit -m "chore: update material symbols"
-      - name: Create next patch tag
+      - name: Suggest next patch version
         if: steps.changes.outputs.has_font_changes == 'true'
         id: next_tag
         shell: bash
@@ -71,13 +67,50 @@ jobs:
             next_tag="${major}.${minor}.${next_patch}"
           done
 
-          git tag "$next_tag"
           echo "tag=$next_tag" >> "$GITHUB_OUTPUT"
-      - name: Push commit and tag
+      - name: Open pull request
         if: steps.changes.outputs.has_font_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NEXT_TAG: ${{ steps.next_tag.outputs.tag }}
         run: |
-          git push origin "HEAD:${GITHUB_REF_NAME}"
-          git push origin "${{ steps.next_tag.outputs.tag }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -B "${UPDATE_BRANCH}"
+          git add src/MudBlazor.FontIcons.MaterialSymbols/
+          git commit -m "chore: update material symbols"
+          git push --force origin "${UPDATE_BRANCH}"
+
+          # Reuse the existing pull request when a previous run left one open.
+          if [[ -n "$(gh pr list --head "${UPDATE_BRANCH}" --state open --json number --jq '.[].number')" ]]; then
+            echo "Updated the existing pull request for ${UPDATE_BRANCH}."
+            exit 0
+          fi
+
+          cat > "${RUNNER_TEMP}/pr-body.md" <<'EOF'
+          Google published new Material Symbols. This pull request was opened
+          automatically by the `update-material-symbols` workflow.
+
+          Review the regenerated fonts and constants, then merge.
+
+          **To publish, push the tag after merging:**
+
+          ```
+          git tag NEXT_TAG_PLACEHOLDER && git push origin NEXT_TAG_PLACEHOLDER
+          ```
+
+          Tagging by hand is deliberate: a tag pushed by `GITHUB_TOKEN` does not
+          start a new workflow run, so it would never trigger `release`.
+          EOF
+
+          sed -i "s/NEXT_TAG_PLACEHOLDER/${NEXT_TAG}/g" "${RUNNER_TEMP}/pr-body.md"
+
+          gh pr create \
+            --base "${GITHUB_REF_NAME}" \
+            --head "${UPDATE_BRANCH}" \
+            --title "chore: update material symbols" \
+            --body-file "${RUNNER_TEMP}/pr-body.md"
       - name: No font changes
         if: steps.changes.outputs.has_font_changes != 'true'
         run: echo "No changes in src/MudBlazor.FontIcons.MaterialSymbols/wwwroot/font/."
