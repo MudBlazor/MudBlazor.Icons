@@ -5,7 +5,7 @@ namespace GoogleMaterialDesignIconsGenerator.Service;
 
 public class IconHttpClientService : IDisposable
 {
-    public const string GoogleFontUrl = "http://fonts.google.com/";
+    public const string GoogleFontUrl = "https://fonts.google.com/";
     public const string GoogleMaterialDesignIconsRawUrl = "https://github.com/google/material-design-icons/raw/refs/heads/master/variablefont/";
 
     private readonly HttpClient _httpClient;
