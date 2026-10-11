@@ -12,6 +12,7 @@ env:
 permissions:
   contents: read
   packages: write
+  id-token: write
 
 jobs:
   publish:
@@ -54,8 +55,13 @@ jobs:
           mkdir -p artifacts/packages
           dotnet pack src/MudBlazor.FontIcons.MaterialIcons/MudBlazor.FontIcons.MaterialIcons.csproj --configuration Release --no-build --output artifacts/packages -p:Version=${VERSION}
           dotnet pack src/MudBlazor.FontIcons.MaterialSymbols/MudBlazor.FontIcons.MaterialSymbols.csproj --configuration Release --no-build --output artifacts/packages -p:Version=${VERSION}
-      - name: Push to NuGet.org
-        run: dotnet nuget push "artifacts/packages/*.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key "${{ secrets.NUGET_KEY }}" --skip-duplicate
+      - name: NuGet login
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: MudBlazor
+      - name: NuGet push
+        run: dotnet nuget push "artifacts/packages/*.nupkg" --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --skip-duplicate
       - name: Push to GitHub Packages
         run: dotnet nuget push "artifacts/packages/*.nupkg" --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key "${{ secrets.GITHUB_TOKEN }}" --skip-duplicate
       - name: Publish packages artifact
